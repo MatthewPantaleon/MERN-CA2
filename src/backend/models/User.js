@@ -1,23 +1,30 @@
 /**
  * @Date:   2020-01-21T13:51:45+00:00
- * @Last modified time: 2020-01-21T14:08:41+00:00
+ * @Last modified time: 2020-01-28T11:17:00+00:00
  */
 
 const StringRequired = {
   type: String,
-  required: true
+  required: true,
+  default: ''
 };
 
- const mongoose = require("mongoose");
- const UserSchema = new mongoose.Schema({
-   username: StringRequired,
-   email: StringRequired,
-   password: StringRequired,
-   company_id: {
-     type: String,
-     default: null
-   }
- });
+const mongoose = require("mongoose");
+const bcrypt = require('bcrypt');
 
- const User = mongoose.model('User', UserSchema, "users_c");
- module.exports = User;
+const UserSchema = new mongoose.Schema({
+
+  email: StringRequired,
+  password: StringRequired,
+});
+
+UserSchema.methods.generateHash = function(password){
+  return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+};
+UserSchema.methods.validPassword = function(password){
+  return bcrypt.compareSync(password, this.password);
+};
+
+
+const User = mongoose.model('User', UserSchema, "users_c");
+module.exports = User;

@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-01-13T09:46:53+00:00
- * @Last modified time: 2020-01-21T13:45:06+00:00
+ * @Last modified time: 2020-01-28T11:04:33+00:00
  */
 
 const express = require("express");
@@ -10,7 +10,8 @@ const cors = require("cors");
 require("dotenv").config();
 const port = 9001;
 const body_parser = require("body-parser");
-// const moviesRouter = require("./routes/movies");
+const authRouter = require('./routes/auth');
+const moviesRouter = require("./routes/movies");
 
 const uri = process.env.atlas_URI;
 let Movie = require('./models/Movie');
@@ -20,6 +21,9 @@ let Game = require('./models/Game');
 mongoose.connect(uri, { useNewUrlParser: true, useCreateIndex: true});
 let con = mongoose.connection;
 // console.log(con);
+app.use(body_parser());
+app.use(moviesRouter);
+app.use(authRouter);
 
 //Node Server Listens to requests to this port
 app.listen(port, () => {
