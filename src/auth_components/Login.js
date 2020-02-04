@@ -1,10 +1,11 @@
 /**
  * @Date:   2020-01-28T11:28:50+00:00
- * @Last modified time: 2020-02-04T13:19:10+00:00
+ * @Last modified time: 2020-02-04T15:54:56+00:00
  */
 
 import React, { Component } from 'react';
-import * as RB from 'react-bootstrap';
+import {Alert} from 'react-bootstrap';
+import axios from 'axios';
 
 class Login extends Component{
 
@@ -13,14 +14,34 @@ class Login extends Component{
 
     this.state = {
       email: '',
-      password: ''
+      password: '',
+      error: {message: ''}
     };
   }
 
   handleSubmit(e){
     e.preventDefault();
-    console.log("reh");
-    console.log(e.target);
+
+    let data = {
+      email: this.state.email,
+      password: this.state.password
+    };
+    this.setState({
+      error: {message: ''}}, () => {
+      axios.post('http://localhost:9001/login', data).then((res) => {
+        console.log(res);
+        localStorage.setItem("token", res.data.token);
+      }).catch((res) => {
+        console.log(res);
+        this.setState({error: res.response.data});
+      });
+    });
+
+
+  }
+
+  onFormChange(e){
+    this.setState({[e.target.name]: e.target.value});
   }
 
   render(){
@@ -34,9 +55,10 @@ class Login extends Component{
             </div>
             <div className="card-body bg-secondary">
               {/* Login Form */}
-              <form onSubmit={(e) => this.handleSubmit(e)}>
-                <input className="form-control" name="email" type="text" placeholder="Email"/>
-                <input className="form-control mt-4" name="password" type="password" placeholder="Password"/>
+              <form onSubmit={(e) => this.handleSubmit(e)} autoComplete="off">
+                <input onChange={(e) => this.onFormChange(e)} className="form-control" name="email" type="text" placeholder="Email"/>
+                <input onChange={(e) => this.onFormChange(e)} className="form-control mt-4 mb-3" name="password" type="password" placeholder="Password"/>
+                {this.state.error.message ? <Alert variant="danger">{this.state.error.message}</Alert> : <></>}
                 <button className="btn btn-primary float-right mt-4">Login</button>
               </form>
             </div>

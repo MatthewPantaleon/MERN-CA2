@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-01-21T13:51:45+00:00
- * @Last modified time: 2020-02-04T12:36:56+00:00
+ * @Last modified time: 2020-02-04T14:45:37+00:00
  */
 
 const StringRequired = {
@@ -13,7 +13,7 @@ const mongoose = require("mongoose");
 const bcrypt = require('bcrypt');
 
 const UserSchema = new mongoose.Schema({
-  name: StringRequired,
+  username: StringRequired,
   email: StringRequired,
   password: StringRequired,
 });

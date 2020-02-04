@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-01-20T09:50:32+00:00
- * @Last modified time: 2020-02-04T13:10:42+00:00
+ * @Last modified time: 2020-02-04T13:24:02+00:00
  */
 
 
@@ -33,7 +33,7 @@ class App extends Component{
 
           <div className="card bg-dark text-white">
             <div className="card-header">
-              <Link className="text-white" to="/register">Register </Link>
+              <Link className="text-white mr-3" to="/register">Register </Link>
               <Link className="text-white" to="/login">Login </Link>
             </div>
           </div>
