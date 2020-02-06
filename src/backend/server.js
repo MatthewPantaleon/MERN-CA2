@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-01-13T09:46:53+00:00
- * @Last modified time: 2020-02-04T15:42:52+00:00
+ * @Last modified time: 2020-02-04T17:22:12+00:00
  */
 
 const express = require("express");
@@ -14,6 +14,7 @@ const body_parser = require("body-parser");
 //define router objects from other files
 const RegisterRouter = require('./routes/auth/register');
 const LoginRouter = require('./routes/auth/login');
+const AuthRouter = require('./routes/auth/auth');
 
 //get database connection URI
 const uri = process.env.atlas_URI;
@@ -44,3 +45,4 @@ app.get("/", (req, res) => {
 //use routes from other files
 app.use(RegisterRouter);
 app.use(LoginRouter);
+app.use(AuthRouter);

@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-01-20T09:50:32+00:00
- * @Last modified time: 2020-02-04T13:24:02+00:00
+ * @Last modified time: 2020-02-06T10:50:07+00:00
  */
 
 
@@ -8,45 +8,60 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import Login from './auth_components/Login';
-import Register from './auth_components/Register';
 import {BrowserRouter, Link, Redirect, Route} from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import {Navbar, Nav} from 'react-bootstrap';
+
+import Login from './auth_components/Login';
+import Register from './auth_components/Register';
+
+import authUser from './auth_components/authUser';
+import Main from './components/main';
 
 
 class App extends Component{
 
+    constructor(props){
+      super(props);
+      this.state = {
+        loginState: false
+      };
+    }
 
-  componentDidMount(){
+    componentDidMount(){
+      // this.setState({loginState: authUser()}, () => console.log(this.state));
+    }
 
-  }
+    authHandler = () => {
 
-  authHandler = () => {
+    };
 
-  };
+    logOut(){
+      console.log("Log Out");
+      localStorage.removeItem("token");
+      localStorage.removeItem("username");
+      window.location = "/login";
+    }
 
-  render(){
-    return (
-      <>
-        <BrowserRouter>
-          <Redirect from='/' to='/login'/>
+    render(){
+      return(
+        <>
+          <Navbar bg="dark">
+            <Nav.Link className="text-white" href="/register">Register</Nav.Link>
+            {this.state.loginState ? <Nav.Link className="text-white" href="#" onClick={() => this.logOut()}>Logout</Nav.Link> : <Nav.Link className="text-white" href="/login">Login</Nav.Link>}
+          </Navbar>
 
-          <div className="card bg-dark text-white">
-            <div className="card-header">
-              <Link className="text-white mr-3" to="/register">Register </Link>
-              <Link className="text-white" to="/login">Login </Link>
-            </div>
-          </div>
-
-          <div className="container">
+          <BrowserRouter>
+            <div className="container">
               <Route exact path="/register" component={Register}/>
               <Route exact path="/login" component={Login}/>
-          </div>
+              <Route exact path="/main" component={Main}/>
+            </div>
+          </BrowserRouter>
 
-        </BrowserRouter>
-      </>
-    );
-  }
+        </>
+      );
+    }
 }
 
 export default App;

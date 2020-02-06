@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-01-28T11:28:50+00:00
- * @Last modified time: 2020-02-04T15:54:56+00:00
+ * @Last modified time: 2020-02-04T16:58:09+00:00
  */
 
 import React, { Component } from 'react';
@@ -31,6 +31,8 @@ class Login extends Component{
       axios.post('http://localhost:9001/login', data).then((res) => {
         console.log(res);
         localStorage.setItem("token", res.data.token);
+        localStorage.setItem("username", res.data.username);
+        window.location = "/main";
       }).catch((res) => {
         console.log(res);
         this.setState({error: res.response.data});

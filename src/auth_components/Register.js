@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-02-04T12:31:47+00:00
- * @Last modified time: 2020-02-04T14:46:38+00:00
+ * @Last modified time: 2020-02-04T16:12:04+00:00
  */
 
 import React, { Component } from 'react';
@@ -30,7 +30,6 @@ class Register extends Component{
       email: this.state.email,
       password: this.state.password
     };
-    let that = this;
 
     this.setState({error: {message: ''}}, () => {
       axios.post('http://localhost:9001/register', data).then((res) => {
