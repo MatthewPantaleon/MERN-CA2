@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-01-20T09:50:32+00:00
- * @Last modified time: 2020-02-06T10:50:07+00:00
+ * @Last modified time: 2020-02-06T11:02:08+00:00
  */
 
 
@@ -29,7 +29,7 @@ class App extends Component{
     }
 
     componentDidMount(){
-      // this.setState({loginState: authUser()}, () => console.log(this.state));
+      this.setState({loginState: authUser()["PromiseValue"]}, () => console.log(this.state));
     }
 
     authHandler = () => {

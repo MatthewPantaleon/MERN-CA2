@@ -1,12 +1,12 @@
 /**
  * @Date:   2020-01-28T09:50:39+00:00
- * @Last modified time: 2020-02-04T10:13:00+00:00
+ * @Last modified time: 2020-02-06T11:27:57+00:00
  */
 
 const JwtStrategy = require('passport-jwt').Strategy;//Gives options
 const ExtractJwt = require('passport-jwt').ExtractJwt;
 
-let user = require('../models/user');
+let user = require('../models/User');
 const secret = process.env.API_SECRET;
 
 module.exports = function(passport){

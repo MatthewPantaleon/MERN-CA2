@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-01-13T09:46:53+00:00
- * @Last modified time: 2020-02-04T17:22:12+00:00
+ * @Last modified time: 2020-02-06T10:52:58+00:00
  */
 
 const express = require("express");
@@ -8,7 +8,7 @@ const mongoose = require("mongoose");
 const app = express();
 const cors = require("cors");
 require("dotenv").config();
-const port = 9001;
+const port = process.env.PORT || 9001;
 const body_parser = require("body-parser");
 
 //define router objects from other files
