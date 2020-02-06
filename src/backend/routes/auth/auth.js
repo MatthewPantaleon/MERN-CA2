@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-02-04T16:00:38+00:00
- * @Last modified time: 2020-02-04T18:26:58+00:00
+ * @Last modified time: 2020-02-06T12:07:14+00:00
  */
 
 const passport = require('passport');
@@ -28,9 +28,9 @@ router.route("/check").post(passport.authenticate('jwt', {session: false}), (req
   const token = getToken(req.headers);
 
   if(token){
-    res.status(200).json({loginStatus: true});
+    res.status(200).json(true);
   }else{
-    res.status(401).json({loginStatus: false});
+    res.status(401).json(false);
   }
 
 });

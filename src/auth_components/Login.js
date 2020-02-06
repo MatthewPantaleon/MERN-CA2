@@ -1,11 +1,12 @@
 /**
  * @Date:   2020-01-28T11:28:50+00:00
- * @Last modified time: 2020-02-04T16:58:09+00:00
+ * @Last modified time: 2020-02-06T12:16:19+00:00
  */
 
 import React, { Component } from 'react';
 import {Alert} from 'react-bootstrap';
 import axios from 'axios';
+import authUser from './authUser';
 
 class Login extends Component{
 
@@ -17,6 +18,13 @@ class Login extends Component{
       password: '',
       error: {message: ''}
     };
+  }
+
+  componentDidMount(){
+    authUser( undefined, () => {
+      alert("You are already Logged in");
+      window.location = "/main";
+    });
   }
 
   handleSubmit(e){
