@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-01-28T10:19:32+00:00
- * @Last modified time: 2020-02-04T15:37:55+00:00
+ * @Last modified time: 2020-02-06T11:30:02+00:00
  */
 
 const passport = require('passport');
@@ -9,7 +9,7 @@ const jet = require('jsonwebtoken');
 const router = require('express').Router();
 const body_parser = require("body-parser");
 
-let User = require('../../models/user');
+let User = require('../../models/User');
 //register route
 router.post('/register', (req, res) => {
 
