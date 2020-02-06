@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-02-04T15:59:03+00:00
- * @Last modified time: 2020-02-05T20:12:50+00:00
+ * @Last modified time: 2020-02-06T12:56:53+00:00
  */
 
 
@@ -8,11 +8,15 @@
  import 'bootstrap/dist/css/bootstrap.min.css';
  import authUser from '../auth_components/authUser';
 
+ import UserPanel from './UserPanel';
+ import GamePanel from './GamePanel';
+
  class Main extends Component{
    constructor(props){
      super(props);
-     this.state = {};
-
+     this.state = {
+       username: localStorage.getItem("username") || "ử̶̧̛͙̪͓̘̟͇̹̼͈̻͂͑̇͋̄̅͘s̴̫̥͍͎̘̙̪͙̪͎̏̈͐̃̔̿̑̌̐̄̔̄͘͝͝ͅe̴̟͇͎͓͖̝̺͓͛̀͒̈́̒̇r̴̹̻͕̣͎̲̲̰̈̇̇n̶̮̮̯̟̥̠̺̲̍́̈̍͒̅͑̈́̔ã̶͎̳̤͚͇͕͚̫̥̣͋̽̽́̐̆̋͒͋͛̚̚͝͠m̷͚̖͇͖̄e̴̡̧̝̦͗̐̉̌.̷̫͎̱͔̭̩̥̗̙̥̼͙̺̀́̇̌͌̍ͅ"
+     };
    }
 
    componentDidMount(){
@@ -25,7 +29,21 @@
    render(){
      return(
        <>
-        <p>Guhrguergugruhrgujhrg</p>
+        <div className="card mt-4">
+          <div className="card-header bg-dark text-white">
+            <h4>Hello, {this.state.username}</h4>
+          </div>
+          <div className="card-body bg-secondary">
+            <div className="row">
+              <div className="col-4">
+                <UserPanel />
+              </div>
+              <div className="col-8">
+                <GamePanel />
+              </div>
+            </div>
+          </div>
+        </div>
        </>
      );
    }

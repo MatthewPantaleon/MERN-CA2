@@ -1,12 +1,13 @@
 /**
  * @Date:   2020-02-04T12:31:47+00:00
- * @Last modified time: 2020-02-04T16:12:04+00:00
+ * @Last modified time: 2020-02-06T16:31:24+00:00
  */
 
 import React, { Component } from 'react';
 import axios from 'axios';
 import $ from 'jquery';
 import {Alert} from 'react-bootstrap';
+import authUser from './authUser';
 
 class Register extends Component{
 
@@ -17,10 +18,18 @@ class Register extends Component{
       username: '',
       email: '',
       password: '',
+      company_id: '',
       error: {message: ''}
     };
   }
 
+
+  componentDidMount(){
+    authUser(undefined, () => {
+      alert("You are already Logged in! Log out to Register Account");
+      window.location = "/main";
+    });
+  }
 
   handleSubmit(e){
     e.preventDefault();
@@ -28,7 +37,8 @@ class Register extends Component{
     let data = {
       username: this.state.username,
       email: this.state.email,
-      password: this.state.password
+      password: this.state.password,
+      company_id: this.state.company_id
     };
 
     this.setState({error: {message: ''}}, () => {
@@ -60,7 +70,9 @@ class Register extends Component{
               <form onSubmit={(e) => this.handleSubmit(e)} autoComplete="off">
                 <input onChange={(e) => this.onFormChange(e)} className="form-control" name="username" type="text" placeholder="UserName"/>
                 <input onChange={(e) => this.onFormChange(e)} className="form-control mt-4" name="email" type="text" placeholder="Email"/>
-                <input onChange={(e) => this.onFormChange(e)} className="form-control mt-4 mb-3" name="password" type="password" placeholder="Password"/>
+                <input onChange={(e) => this.onFormChange(e)} className="form-control mt-4" name="password" type="password" placeholder="Password"/>
+                <hr />
+                <input onChange={(e) => this.onFormChange(e)} className="form-control mt-4 mb-3" name="companyId" type="text" placeholder="Company ID (Optional)"/>
                 {this.state.error.message ? <Alert variant="danger">{this.state.error.message}</Alert> : <></>}
                 <button className="btn btn-primary float-right mt-4">Register</button>
               </form>

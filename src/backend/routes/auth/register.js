@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-01-28T10:19:32+00:00
- * @Last modified time: 2020-02-06T11:30:02+00:00
+ * @Last modified time: 2020-02-06T16:32:58+00:00
  */
 
 const passport = require('passport');
@@ -12,12 +12,13 @@ const body_parser = require("body-parser");
 let User = require('../../models/User');
 //register route
 router.post('/register', (req, res) => {
-
+  // console.log(req.body);
   //seperates the body data
   let { body } = req;
   let { password } = body;
   let { email } = body;
-  let {username} = body;
+  let { username } = body;
+  let { company_id } = body;
   // console.log(body);
 
   //basic string validation of inputs
@@ -60,6 +61,7 @@ router.post('/register', (req, res) => {
     newUser.username = username;
     newUser.email = email;
     newUser.password = newUser.generateHash(password);
+    newUser.company_id = company_id;
 
     newUser.save((err, user) => {
       if(err){
