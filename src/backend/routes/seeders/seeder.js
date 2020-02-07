@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-02-06T15:23:48+00:00
- * @Last modified time: 2020-02-07T19:49:02+00:00
+ * @Last modified time: 2020-02-07T20:29:18+00:00
  */
 
 
@@ -15,7 +15,7 @@ let Company = require('../../models/Company');
 router.get('/seed', async (req, res) => {
   //seeding genres
   let params = {
-    genres: ["Action", "Adventure", "Open-Sandbox", "Role Playing Game", "Puzzle", "Free To Play", "Real-Time Strategy", "First Person Shooter", "Third Person Shooter"],
+    genres: ["Action", "Adventure", "Open-Sandbox", "Role Playing Game", "Puzzle", "Free To Play", "Real-Time Strategy", "First Person Shooter", "Multiplayer"],
     companies: [
       {name: "Electronic Arts", company_id: "SC4"},
       {name: "Microsoft", company_id: "HCE"},
@@ -42,7 +42,7 @@ router.get('/seed', async (req, res) => {
         description: "Call of Duty is a first-person shooter video game franchise published by Activision. Starting out in 2003, it first focused on games set in World War II, but over time, the series has seen games set in modern times, the midst of the Cold War, futuristic worlds, and outer space",
         price: "60.00",
         c: "SC4",
-        gr: [0, 7]
+        gr: [0, 7, 8]
       },
 
       {
@@ -50,7 +50,7 @@ router.get('/seed', async (req, res) => {
         description: "Age of Empires II: The Age of Kings is a real-time strategy video game developed by Ensemble Studios and published by Microsoft. Released in 1999 for Microsoft Windows and Macintosh, it is the second game in the Age of Empires series. An expansion, The Conquerors, was released in 2000",
         price: "15.95",
         c: "HCE",
-        gr: [0, 6]
+        gr: [0, 6, 8]
       },
       {
         name: "Halo Combat Evolved",
@@ -64,14 +64,14 @@ router.get('/seed', async (req, res) => {
         description: "Minecraft is a sandbox video game created by Swedish developer Markus Persson, released by Mojang in 2011 and purchased by Microsoft in 2014. It is the single best-selling video game of all time, selling over 180 million copies across all platforms by late 2019, with over 112 million monthly active players.",
         price: "26.95",
         c: "HCE",
-        gr: [1, 2]
+        gr: [1, 2, 8]
       },
       {
         name: "Factorio",
         description: "Factorio is a construction and management simulation game. Factorio began development in 2012 by the Prague-based Wube Software. It was released in early access in 2016, it will be officially released on September 25, 2020.",
         price: "25.00",
         c: "FAC",
-        gr: [2, 4, 6]
+        gr: [2, 4, 6, 8]
       },
 
       {
@@ -93,7 +93,7 @@ router.get('/seed', async (req, res) => {
         description: "Team Fortress 2 is a multiplayer first-person shooter game developed and published by Valve. It is the sequel to the 1996 mod Team Fortress for Quake and its 1999 remake, Team Fortress Classic. It was released as part of the video game bundle The Orange Box in October 2007 for Microsoft Windows and the Xbox 360.",
         price: "Free",
         c: "HL3",
-        gr: [0, 5 ,7]
+        gr: [0, 5 ,7, 8]
       }
     ]
   };
@@ -103,10 +103,10 @@ router.get('/seed', async (req, res) => {
   });
 
   //seeding the dependant collections first
-  await Game.remove({}, () => {
+  await Game.remove({}, async () => {
     console.log("\x1b[32m", "Deleting and Reseeding games_c");
 
-    params.games.forEach(async (e, i) => {
+    await params.games.forEach(async (e, i) => {
       let g = new Game();
 
       g.name = e.name;
@@ -125,28 +125,57 @@ router.get('/seed', async (req, res) => {
 
     //get all games
     let games = [];
-     await Game.find({}, (err, gs) => {
-      games = gs;
+    await Game.find({}, (err, gs) => {
+        games = gs;
     });
 
-    params.companies.forEach(async (e, i) => {
-      let c = new Company();
-      // console.log(e.name);
-
-      c.name = e.name;
-      c.company_id = e.company_id;
-      let temp = [];
-      games.forEach((e, i) => {
-        if(params.games[i].c == c.company_id){
-          temp.push(e._id);
+    // params.companies.forEach(async (e, i) => {
+    //   let c = new Company();
+    //   // console.log(e.name);
+    //   if(c.games.length > 0){
+    //     console.log("\x1b[33m", "Companies Alreadt have games!");
+    //   }
+    //
+    //   c.name = e.name;
+    //   c.company_id = e.company_id;
+    //   let temp = [];
+    //   games.forEach((e, i) => {
+    //     if(params.games[i].c == c.company_id){
+    //       temp.push(e._id);
+    //   }
+    //   });
+    //   c.games = temp;
+    //
+    //   await c.save((err, com) => {
+    //     console.log("\x1b[33m", "Inserted Compnay: " + com.name + ". Add Game Amount: " + com.games.length);
+    //   });
+    //
+    // });
+    for(let i = 0; i < params.companies.length; i++){
+        let e = params.companies[i];
+        let c = new Company();
+        // console.log(e.name);
+        if(Company.findOne({name: e.name}).games.length > 0){
+          console.log("\x1b[33m", "Company Alreadt have games!");
+          break;
         }
-      });
-      c.games = temp;
-      await c.save((err, com) => {
-        console.log("\x1b[33m", "Inserted Compnay: " + com.name + ". Add Game Amount: " + com.games.length);
-      });
 
-    });
+        c.name = e.name;
+        c.company_id = e.company_id;
+        let temp = [];
+        games.forEach((e, i) => {
+          if(params.games[i].c == c.company_id){
+            temp.push(e._id);
+        }
+        });
+        c.games = temp;
+
+        await c.save((err, com) => {
+          console.log("\x1b[33m", "Inserted Compnay: " + com.name + ". Add Game Amount: " + com.games.length);
+        });
+    }
+
+
   });
 
   //reseeding genres
@@ -173,7 +202,7 @@ router.get('/seed', async (req, res) => {
       //   console.log("\x1b[36m", gr.name);
       // });
 
-
+      console.log("\x1b[36m", "Game Genres Assignment Debug Print...");
       games.forEach(async (g, i) => {
         // Game.updateOne({_id: g._id});
         let tempGenreIndexes = [];
@@ -182,7 +211,15 @@ router.get('/seed', async (req, res) => {
           return params.genres[e];
         });
 
-        console.log("\x1b[0m", tempGenreNames);
+        // console.log("\x1b[0m", tempGenreNames);
+        let genreIds = [];
+        tempGenreNames.forEach((gr, i) => {
+          // console.log("\x1b[36m", g.name + " --- " + i + ": " + gr + " || " + gr._id);
+          // await Genre.findOne({name: gr}, (err, gr) => console.log(g.name +": "+ gr.name + ". #"+ gr._id));
+          // console.log(genreIds);
+          let genre = genres.find(genre => genre.name == gr);
+          console.log("\x1b[36m", g.name + " --- " + i + ": " + gr + " || " + genre._id);
+        });
 
       });
 
@@ -196,5 +233,6 @@ router.get('/seed', async (req, res) => {
   console.log("\x1b[0m", "\n");
   res.json({message: "reseeding completed"});
 });
+
 
 module.exports = router;
