@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-02-06T15:23:48+00:00
- * @Last modified time: 2020-02-07T18:29:31+00:00
+ * @Last modified time: 2020-02-07T18:37:20+00:00
  */
 
 
@@ -119,14 +119,14 @@ router.get('/seed', async (req, res) => {
       games = gs;
     });
 
-    params.companies.forEach((e, i) => {
+    params.companies.forEach(async (e, i) => {
       let c = new Company();
       // console.log(e.name);
 
       c.name = e.name;
       c.company_id = e.company_id;
       let temp = [];
-      games.forEach((e, i) => {
+      await games.forEach((e, i) => {
         if(params.games[i].c == c.company_id){
           temp.push(e._id);
         }
@@ -137,6 +137,21 @@ router.get('/seed', async (req, res) => {
       });
 
     });
+  });
+
+
+  await Genre.remove({}, () => {
+    console.log("\x1b[36m", "Deleting and Reseeding genres_c");
+    params.genres.forEach((e, i) => {
+      let gr = new Genre();
+
+      gr.name = e;
+
+      gr.save((err, gr) => {
+        console.log("\x1b[36m", "Inserted Genre: "+ gr.name);
+      });
+    });
+
   });
 
 
