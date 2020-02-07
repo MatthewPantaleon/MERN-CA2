@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-02-06T15:23:48+00:00
- * @Last modified time: 2020-02-07T18:12:15+00:00
+ * @Last modified time: 2020-02-07T18:29:31+00:00
  */
 
 
@@ -26,7 +26,8 @@ router.get('/seed', async (req, res) => {
       {
         name: "Sim City 4",
         description: "SimCity 4 is a city-building simulation computer game developed by Maxis, a subsidiary of Electronic Arts. It was released on January 14, 2003. It is the fourth major installment in the SimCity series. SimCity 4 has a single expansion pack called Rush Hour which adds features to the game. SimCity 4: Deluxe Edition contained the original game and Rush Hour combined as a single product.",
-        price: "15.95"
+        price: "15.95",
+        c: "SC4"
       },
       {
         name: "Sims 2",
@@ -103,29 +104,43 @@ router.get('/seed', async (req, res) => {
       g.price = e.price;
 
       g.save((err, game, num) => {
-        console.log("Inserted Game: " + game.name + ". #: " + i);
+        console.log("\x1b[32m", "Inserted Game: " + game.name + ". #: " + i);
       });
     });
   });
 
-  //seeding companies
-  await Company.remove({}, () => {
-    console.log("\x1b[33m", "\nDeleting and Reseeding copmanies_c");
+  //seeding companies along with their respective game ids
+  await Company.remove({}, async () => {
+    console.log("\x1b[33m", "Deleting and Reseeding copmanies_c");
+
+    //get all games
+    let games = [];
+    await Game.find({}, (err, gs) => {
+      games = gs;
+    });
+
     params.companies.forEach((e, i) => {
       let c = new Company();
       // console.log(e.name);
 
       c.name = e.name;
       c.company_id = e.company_id;
-      // console.log(c);
-      c.save((err, com) => {
-        console.log("Inserted Compnay: " + com.name + ". Add Game Amount: " + com.games.length);
+      let temp = [];
+      games.forEach((e, i) => {
+        if(params.games[i].c == c.company_id){
+          temp.push(e._id);
+        }
       });
+      c.games = temp;
+      c.save((err, com) => {
+        console.log("\x1b[33m", "Inserted Compnay: " + com.name + ". Add Game Amount: " + com.games.length);
+      });
+
     });
   });
 
 
-
+  console.log("\x1b[0m", "\n");
   res.json({message: "reseeding completed"});
 });
 
