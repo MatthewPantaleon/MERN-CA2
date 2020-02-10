@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-02-04T15:18:08+00:00
- * @Last modified time: 2020-02-10T19:39:51+00:00
+ * @Last modified time: 2020-02-10T20:01:43+00:00
  */
 
 import axios from 'axios';
@@ -19,7 +19,7 @@ export default function ApiLoader(collection, async){
     method: "GET",
     async: async,
     success(r){
-      result = r.gs;
+      result = r.data;
     },
     error(r){
       result = r;

@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-02-04T14:46:56+00:00
- * @Last modified time: 2020-02-06T11:30:20+00:00
+ * @Last modified time: 2020-02-10T20:09:54+00:00
  */
 
 const passport = require('passport');
@@ -43,7 +43,7 @@ router.post('/login', (req, res) => {
       if(user.validPassword(password)){
         //create token
         let token = jwt.sign(user.toJSON(), process.env.API_SECRET);
-        res.json({success: true, token: 'JWT ' + token, username: user.username});
+        res.json({success: true, token: 'JWT ' + token, username: user.username, company_id: user.company_id});
       }else{
         res.status(401).json({success: false, message: "Authentication failed. Wrong Password."});
       }

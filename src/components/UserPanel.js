@@ -1,9 +1,9 @@
 /**
  * @Date:   2020-02-06T12:39:02+00:00
- * @Last modified time: 2020-02-10T17:35:08+00:00
+ * @Last modified time: 2020-02-10T20:06:43+00:00
  */
 
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ApiLoader from './../ApiLoader';
 
@@ -32,11 +32,17 @@ class UserPanel extends Component{
           <div className="card-body bg-secondary p-1">
 
             {/* Search form function fir library */}
-            <input className="form-control mt-3" type="text" placeholder="Saerch"/>
+            <input className="form-control mt-3" type="text" placeholder="Search"/>
 
             {/* Search based on Genre*/}
             <select className="form-control mt-3">
-              <option>rtet</option>
+              {this.props.genres.map((e, i) => {
+                return (
+                <Fragment key={i}>
+                  <option value={e._id}>{e.name}</option>
+                </Fragment>
+                );
+              })}
             </select>
 
           </div>
