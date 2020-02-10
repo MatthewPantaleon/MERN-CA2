@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-01-21T13:51:45+00:00
- * @Last modified time: 2020-02-06T13:02:55+00:00
+ * @Last modified time: 2020-02-10T16:26:47+00:00
  */
 
 const StringRequired = {
@@ -15,7 +15,11 @@ const UserSchema = new mongoose.Schema({
   username: StringRequired,
   email: StringRequired,
   password: StringRequired,
-  company_id: String
+  company_id: String,
+  library_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Library"
+  }
 });
 
 

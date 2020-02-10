@@ -1,16 +1,24 @@
 /**
  * @Date:   2020-02-06T12:39:02+00:00
- * @Last modified time: 2020-02-06T15:20:39+00:00
+ * @Last modified time: 2020-02-10T17:35:08+00:00
  */
 
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import ApiLoader from './../ApiLoader';
 
 class UserPanel extends Component{
   constructor(props){
     super(props);
 
-    this.state = {};
+    this.state = {
+      games: [],
+      genres: []
+    };
+  }
+
+  componentDidMount(){
+    //get genres for the drop down
   }
 
   render(){
@@ -30,7 +38,7 @@ class UserPanel extends Component{
             <select className="form-control mt-3">
               <option>rtet</option>
             </select>
-            
+
           </div>
         </div>
       </>

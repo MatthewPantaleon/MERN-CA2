@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-01-13T09:46:53+00:00
- * @Last modified time: 2020-02-06T16:48:50+00:00
+ * @Last modified time: 2020-02-10T17:17:42+00:00
  */
 
 const express = require("express");
@@ -17,6 +17,8 @@ const LoginRouter = require('./routes/auth/login');
 const AuthRouter = require('./routes/auth/auth');
 const UserRoutes = require('./routes/userRoutes/user');
 const SeedRoute = require('./routes/seeders/seeder');
+
+const GameRoutes = require('./routes/gameRoutes');
 
 //get database connection URI
 const uri = process.env.atlas_URI;
@@ -51,3 +53,4 @@ app.use(RegisterRouter);
 app.use(LoginRouter);
 app.use(AuthRouter);
 app.use(UserRoutes);
+app.use(GameRoutes);

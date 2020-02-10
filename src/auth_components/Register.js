@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-02-04T12:31:47+00:00
- * @Last modified time: 2020-02-06T16:31:24+00:00
+ * @Last modified time: 2020-02-10T18:07:54+00:00
  */
 
 import React, { Component } from 'react';
@@ -72,7 +72,7 @@ class Register extends Component{
                 <input onChange={(e) => this.onFormChange(e)} className="form-control mt-4" name="email" type="text" placeholder="Email"/>
                 <input onChange={(e) => this.onFormChange(e)} className="form-control mt-4" name="password" type="password" placeholder="Password"/>
                 <hr />
-                <input onChange={(e) => this.onFormChange(e)} className="form-control mt-4 mb-3" name="companyId" type="text" placeholder="Company ID (Optional)"/>
+                <input onChange={(e) => this.onFormChange(e)} className="form-control mt-4 mb-3" name="company_id" type="text" placeholder="Company ID (Optional)"/>
                 {this.state.error.message ? <Alert variant="danger">{this.state.error.message}</Alert> : <></>}
                 <button className="btn btn-primary float-right mt-4">Register</button>
               </form>
