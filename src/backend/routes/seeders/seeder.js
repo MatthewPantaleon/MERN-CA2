@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-02-06T15:23:48+00:00
- * @Last modified time: 2020-02-07T20:29:18+00:00
+ * @Last modified time: 2020-02-10T16:07:49+00:00
  */
 
 
@@ -155,10 +155,10 @@ router.get('/seed', async (req, res) => {
         let e = params.companies[i];
         let c = new Company();
         // console.log(e.name);
-        if(Company.findOne({name: e.name}).games.length > 0){
-          console.log("\x1b[33m", "Company Alreadt have games!");
-          break;
-        }
+        // if(Company.findOne({name: e.name}).games.length > 0){
+        //   console.log("\x1b[33m", "Company Alreadt have games!");
+        //   break;
+        // }
 
         c.name = e.name;
         c.company_id = e.company_id;
@@ -195,12 +195,6 @@ router.get('/seed', async (req, res) => {
   //reseeding genres and games with thier respective ids from each other
   await Game.find({}, async (g_err, games) => {
     await Genre.find({}, (gr_err, genres) => {
-      // games.forEach((g, i) => {
-      //   console.log("\x1b[31m", g.name);
-      // });
-      // genres.forEach((gr, i) => {
-      //   console.log("\x1b[36m", gr.name);
-      // });
 
       console.log("\x1b[36m", "Game Genres Assignment Debug Print...");
       games.forEach(async (g, i) => {
@@ -216,13 +210,36 @@ router.get('/seed', async (req, res) => {
         tempGenreNames.forEach((gr, i) => {
           // console.log("\x1b[36m", g.name + " --- " + i + ": " + gr + " || " + gr._id);
           // await Genre.findOne({name: gr}, (err, gr) => console.log(g.name +": "+ gr.name + ". #"+ gr._id));
-          // console.log(genreIds);
+          // console.log(genreIds)
           let genre = genres.find(genre => genre.name == gr);
+          genreIds.push(genre._id);
           console.log("\x1b[36m", g.name + " --- " + i + ": " + gr + " || " + genre._id);
         });
 
-      });
+        // console.log(genreIds);
+        console.log("\n");
 
+        g.genres = genreIds;
+        await Game.findByIdAndUpdate(g._id, g, {new: true}).then((g) => {
+          console.log("\x1b[31m", "Game: " + g.name + " added: " + g.genres.length + " genres.");
+
+          //assign games to the genre documents by getting an array of game ids to each genre
+          genres.forEach((gr, i) => {
+            let gs = games.map((g, i) => {
+              if(g.genres.includes(gr._id)){
+                return g._id;
+              }
+            });
+            gs = gs.filter(g => g !== undefined);
+            // console.log(gr.name+":\n", gs);
+            gr.games = gs;
+            Genre.findByIdAndUpdate(gr._id, gr, {new: true}).then((g) => {
+              console.log("\x1b[37m", g.name + " now has " + g.games.length + " Games.");
+            });
+          });
+
+        });
+      });
 
 
 
