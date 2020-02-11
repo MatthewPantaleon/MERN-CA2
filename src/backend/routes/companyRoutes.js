@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-02-11T09:33:00+00:00
- * @Last modified time: 2020-02-11T09:43:09+00:00
+ * @Last modified time: 2020-02-11T17:53:02+00:00
  */
 
 const express = require("express");
@@ -16,9 +16,13 @@ const Company = require("./../models/Company");
 // const Library = require("./../models/Library");
 
 router.get("/company/:id", (req, res) => {
-  Company.findOne({company_id: req.params.id}, (err, company) => {
-    res.json({data: company.games});
-  });
+  if(req.params.id !== "null"){
+    Company.findOne({company_id: req.params.id}, (err, company) => {
+      res.json({data: company.games, name: company.name});
+    });
+  }else{
+    res.json({data: [], name: ""});
+  }
 
 });
 

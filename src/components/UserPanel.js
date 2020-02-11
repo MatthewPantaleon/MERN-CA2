@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-02-06T12:39:02+00:00
- * @Last modified time: 2020-02-10T20:06:43+00:00
+ * @Last modified time: 2020-02-11T16:55:17+00:00
  */
 
 import React, { Component, Fragment } from 'react';
@@ -13,15 +13,16 @@ class UserPanel extends Component{
 
     this.state = {
       games: [],
-      genres: []
+      genres: [],
     };
   }
 
   componentDidMount(){
-    //get genres for the drop down
+
   }
 
   render(){
+
     return(
       <>
         <div className="card" style={{border: "none"}}>
@@ -29,13 +30,14 @@ class UserPanel extends Component{
             <button className="btn btn-primary">Store Page</button>
             <button className="btn btn-primary float-right">Add Game</button>
           </div>
-          <div className="card-body bg-secondary p-1">
+          <div className="card-body bg-dark p-1">
 
             {/* Search form function fir library */}
-            <input className="form-control mt-3" type="text" placeholder="Search"/>
+            <input className="form-control mt-3" type="text" placeholder="Search" disabled={this.props.games.length == 0} />
 
             {/* Search based on Genre*/}
-            <select className="form-control mt-3">
+            <select className="form-control mt-3" disabled={this.props.games.length == 0}>
+              <option value="none">Select Genre</option>
               {this.props.genres.map((e, i) => {
                 return (
                 <Fragment key={i}>
@@ -44,6 +46,17 @@ class UserPanel extends Component{
                 );
               })}
             </select>
+
+            <hr className="m-0 p-0 mt-3 mb-3" style={{border: "2px solid black"}}/>
+            {this.props.games.length > 0 ? this.props.games.map((e, i) => {
+              return(
+                <p>{e.name}</p>
+              );
+            }) :
+            <ul className="lit-group p-0">
+              <li className="list-group-item list-group-item-action bg-dark text-white">No Games in your Library</li>
+            </ul>
+            }
 
           </div>
         </div>

@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-01-20T09:50:32+00:00
- * @Last modified time: 2020-02-11T11:51:46+00:00
+ * @Last modified time: 2020-02-11T15:32:55+00:00
  */
 
 
@@ -61,14 +61,16 @@ class App extends Component{
         <>
 
           <Navbar bg="dark">
-            {this.state.loginState ? <></> : <Nav.Link className="text-white" href="/register">Register</Nav.Link>}
-            {this.state.loginState ? <Nav.Link className="text-white" href="#" onClick={() => this.logOut()}>Logout</Nav.Link> : <Nav.Link className="text-white" href="/login">Login</Nav.Link>}
+            {JSON.parse(localStorage.getItem("loggedIn")) ? <></> : <Nav.Link className="text-white" href="/">Home</Nav.Link>}
+            {JSON.parse(localStorage.getItem("loggedIn")) ? <></> : <Nav.Link className="text-white" href="/register">Register</Nav.Link>}
+            {JSON.parse(localStorage.getItem("loggedIn")) ? <Nav.Link className="text-white" href="#" onClick={() => this.logOut()}>Logout</Nav.Link> : <Nav.Link className="text-white" href="/login">Login</Nav.Link>}
             <Nav.Link className="text-dark float-right" onClick={() => this.seeding()}>Seed database</Nav.Link>
           </Navbar>
 
           <BrowserRouter>
             <div className="container">
-              {JSON.parse(localStorage.getItem("loggedIn")) ? <Redirect to="/main" /> : <Redirect to="/login" />}
+              {JSON.parse(localStorage.getItem("loggedIn")) ? <Redirect to="/main" /> : <></>}
+              <Route exact path="/" component={Welcome}/>
               <Route exact path="/register" component={Register}/>
               <Route exact path="/login" component={Login}/>
               <Route exact path="/main" component={Main}/>
@@ -79,5 +81,39 @@ class App extends Component{
       );
     }
 }
+
+class Welcome extends Component{
+  constructor(props){
+    super(props);
+  }
+
+  render(){
+    return(
+      <>
+      <div className="container">
+          <div className="row">
+            <div className="col-12">
+              <div className="card mt-5">
+                <div className="card-header bg-dark text-white" style={{borderRadius: 0}}>
+                  <div class="row justify-content-center">
+                    <div class="col-8 text-center">
+                      <h3>Welcome to the Steam Emulator!</h3>
+                    </div>
+                  </div>
+                  <div class="row justify-content-center">
+                    <div class="col-4 text-center">
+                      <h3>Login Or Register!</h3>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </>
+    );
+  }
+}
+
 
 export default App;
