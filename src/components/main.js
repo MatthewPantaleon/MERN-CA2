@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-02-04T15:59:03+00:00
- * @Last modified time: 2020-02-10T20:04:12+00:00
+ * @Last modified time: 2020-02-11T10:53:33+00:00
  */
 
 
@@ -18,19 +18,26 @@
      this.state = {
        username: localStorage.getItem("username") || "ử̶̧̛͙̪͓̘̟͇̹̼͈̻͂͑̇͋̄̅͘s̴̫̥͍͎̘̙̪͙̪͎̏̈͐̃̔̿̑̌̐̄̔̄͘͝͝ͅe̴̟͇͎͓͖̝̺͓͛̀͒̈́̒̇r̴̹̻͕̣͎̲̲̰̈̇̇n̶̮̮̯̟̥̠̺̲̍́̈̍͒̅͑̈́̔ã̶͎̳̤͚͇͕͚̫̥̣͋̽̽́̐̆̋͒͋͛̚̚͝͠m̷͚̖͇͖̄e̴̡̧̝̦͗̐̉̌.̷̫͎̱͔̭̩̥̗̙̥̼͙̺̀́̇̌͌̍ͅ",
        games: [],
-       genres: []
+       genres: [],
+       companyGameIds: [],
+       userLibraryGames: []
      };
    }
 
    componentDidMount(){
      authUser(() => {
        alert("You are not Authorized!");
-       window.location = "/login";
+       console.log(this.props);
+       this.props.history.push("/login");
      }, () => {
+       // window.location = "/main";
+       // window.location = "/main";
        this.setState(
          {
            games: ApiLoader("games", false),
-           genres: ApiLoader("genres", false)
+           genres: ApiLoader("genres", false),
+           companyGameIds: ApiLoader("company/" + localStorage.getItem("company_id"), false),
+           userLibraryGames: ApiLoader("library/" + localStorage.getItem("library_id"), false)
          }, () => {
            console.log(this.state);
          });

@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-02-04T14:46:56+00:00
- * @Last modified time: 2020-02-10T20:09:54+00:00
+ * @Last modified time: 2020-02-11T10:30:01+00:00
  */
 
 const passport = require('passport');
@@ -10,6 +10,7 @@ const router = require('express').Router();
 const body_parser = require("body-parser");
 
 let User = require('../../models/User');
+let Library = require('../../models/Library');
 
 router.post('/login', (req, res) => {
 
@@ -32,8 +33,17 @@ router.post('/login', (req, res) => {
   }
   email = email.toLowerCase().trim();
 
-  User.findOne({email: email}, (err, user) => {
+  User.findOne({email: email}, async (err, user) => {
     if(err)throw err;
+
+    let libraryId;
+    await Library.findOne({user_id: user._id}, (err, library) => {
+      if(library){
+        libraryId = library._id;
+      }else{
+        libraryId = "NO Library";
+      }
+    })
 
     //user validation
     if(!user){
@@ -43,7 +53,7 @@ router.post('/login', (req, res) => {
       if(user.validPassword(password)){
         //create token
         let token = jwt.sign(user.toJSON(), process.env.API_SECRET);
-        res.json({success: true, token: 'JWT ' + token, username: user.username, company_id: user.company_id});
+        res.json({success: true, token: 'JWT ' + token, username: user.username, company_id: user.company_id, library_id: libraryId});
       }else{
         res.status(401).json({success: false, message: "Authentication failed. Wrong Password."});
       }

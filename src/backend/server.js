@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-01-13T09:46:53+00:00
- * @Last modified time: 2020-02-10T20:01:05+00:00
+ * @Last modified time: 2020-02-11T09:36:09+00:00
  */
 
 const express = require("express");
@@ -20,6 +20,7 @@ const SeedRoute = require('./routes/seeders/seeder');
 
 const GameRoutes = require('./routes/gameRoutes');
 const GenreRoutes = require('./routes/genreRoutes');
+const CompanyRoutes = require('./routes/companyRoutes');
 
 //get database connection URI
 const uri = process.env.atlas_URI;
@@ -57,3 +58,4 @@ app.use(UserRoutes);
 
 app.use(GameRoutes);
 app.use(GenreRoutes);
+app.use(CompanyRoutes);

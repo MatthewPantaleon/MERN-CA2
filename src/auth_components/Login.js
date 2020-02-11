@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-01-28T11:28:50+00:00
- * @Last modified time: 2020-02-10T20:10:53+00:00
+ * @Last modified time: 2020-02-11T11:50:12+00:00
  */
 
 import React, { Component } from 'react';
@@ -40,7 +40,9 @@ class Login extends Component{
         console.log(res);
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("username", res.data.username);
-        localStorage.setItem("copmany_id", res.data.company_id);
+        localStorage.setItem("company_id", res.data.company_id);
+        localStorage.setItem("library_id", res.data.library_id);
+        localStorage.setItem("loggedIn", res.data.success);
         window.location = "/main";
       }).catch((res) => {
         console.log(res);

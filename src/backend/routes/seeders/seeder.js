@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-02-06T15:23:48+00:00
- * @Last modified time: 2020-02-10T16:31:49+00:00
+ * @Last modified time: 2020-02-11T10:35:18+00:00
  */
 
 
@@ -98,8 +98,15 @@ router.get('/seed', async (req, res) => {
     ]
   };
 
-  await Library.remove({}, () => {
-    console.log("\x1b[34m", "\nClearing All Libraries.");
+  await Library.find({}, (err, libraries) => {
+    console.log("\x1b[34m", "\nClearing All Libraries Games...");
+    let newLibraries = [];
+    libraries.forEach(async (e, i) => {
+      e.games = [];
+      await Library.updateOne(e._id, e, (err, newLibrary) => {
+        
+      });
+    });
   });
 
   //seeding the dependant collections first

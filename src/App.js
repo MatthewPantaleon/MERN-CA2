@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-01-20T09:50:32+00:00
- * @Last modified time: 2020-02-07T14:34:26+00:00
+ * @Last modified time: 2020-02-11T11:51:46+00:00
  */
 
 
@@ -24,25 +24,22 @@ class App extends Component{
     constructor(props){
       super(props);
       this.state = {
-        loginState: false
+        loginState: false,
+        redirect: true
       };
     }
 
-    auth = (cf, cs) => {
-      return authUser(cf, cs);
-    };
-
     componentDidMount(){
-      //check that the user is actually logged in and redirect accordingly
-      this.setState({
-        loginState: this.auth()
-      });
+
     }
 
     logOut(){
       console.log("Log Out");
       localStorage.removeItem("token");
       localStorage.removeItem("username");
+      localStorage.removeItem("company_id");
+      localStorage.removeItem("library_id");
+      localStorage.removeItem("loggedIn");
       window.location = "/login";
     }
 
@@ -71,7 +68,7 @@ class App extends Component{
 
           <BrowserRouter>
             <div className="container">
-              {this.state.loginState ? <Redirect to="/main" /> : <></>}
+              {JSON.parse(localStorage.getItem("loggedIn")) ? <Redirect to="/main" /> : <Redirect to="/login" />}
               <Route exact path="/register" component={Register}/>
               <Route exact path="/login" component={Login}/>
               <Route exact path="/main" component={Main}/>

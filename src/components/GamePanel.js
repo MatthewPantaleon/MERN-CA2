@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-02-06T12:50:48+00:00
- * @Last modified time: 2020-02-10T20:24:29+00:00
+ * @Last modified time: 2020-02-11T09:29:02+00:00
  */
 
  import React, { Component, Fragment } from 'react';
@@ -46,6 +46,7 @@
           </div>
           <hr className="m-0 p-0" style={{border: "2px solid black"}}/>
           <div className="card-body bg-dark">
+          {/*Show list of games*/}
           <ul className="list-group ">
             {this.props.games.map((e, i) => {
               return(
