@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-01-28T11:28:50+00:00
- * @Last modified time: 2020-02-11T17:42:50+00:00
+ * @Last modified time: 2020-02-13T10:05:35+00:00
  */
 
 import React, { Component } from 'react';
@@ -36,7 +36,7 @@ class Login extends Component{
     };
     this.setState({
       error: {message: ''}}, () => {
-      axios.post('http://localhost:9001/login', data).then((res) => {
+      axios.post(process.env.REACT_APP_BACKEND_URI + '/login', data).then((res) => {
         console.log(res);
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("username", res.data.username);
