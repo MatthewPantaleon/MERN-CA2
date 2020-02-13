@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-02-04T15:59:03+00:00
- * @Last modified time: 2020-02-13T18:04:55+00:00
+ * @Last modified time: 2020-02-13T18:39:08+00:00
  */
 
 
@@ -56,11 +56,18 @@
 
    checkUserLibrarygames = async (newValue) => {
      let temp = this.state.userLibraryGames.games;
-     if(temp.includes(newValue)){
+     // console.log(temp[0]._id);
+     // console.log(newValue._id);
+
+     // console.log(temp.findIndex(t => t._id == newValue._id));
+     if(temp.findIndex(t => t._id == newValue._id) >= 0){
        alert(newValue.name + ", is already in your library!");
        return;
      }else{
        temp.push(newValue);
+       this.setState({userLibraryGames: temp}, () => {
+         console.log(this.state.userLibraryGames);
+       });
        // console.log(await axios.post(process.env.REACT_APP_BACKEND_URI + "/library/" + newValue._id).then((d) => d.data));
        console.log(await ApiLoader("library/" + localStorage.getItem("library_id"), "post", {gameId: newValue._id}).then((d) => d.data));
        // this.setState({userLibraryGames: await axios.post(process.env.REACT_APP_BACKEND_URI + "/library/" + newValue._id).then((d) => d.data)});
@@ -91,6 +98,7 @@
               <div className="col-8">
                 <GamePanel
                   games={this.state.games}
+                  userGames={this.state.userLibraryGames.games}
                   genres={this.state.genres}
                   companyName={this.state.companyName}
                   companyIds={this.state.companyGameIds}

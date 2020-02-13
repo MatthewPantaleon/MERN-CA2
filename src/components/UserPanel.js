@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-02-06T12:39:02+00:00
- * @Last modified time: 2020-02-13T18:13:18+00:00
+ * @Last modified time: 2020-02-13T18:39:53+00:00
  */
 
 import React, { Component, Fragment } from 'react';
@@ -68,7 +68,7 @@ class UserPanel extends Component{
               }).map((e, i) => {
               return(
                 <Fragment key={i}>
-                  <a href="#" className="list-group-item list-group-item-action bg-secondary text-white">
+                  <a className="list-group-item list-group-item-action bg-secondary text-white">
                   {e.name}
                   <button className="btn-danger float-right">X</button>
                   {this.props.companyIds.includes(e._id) ? <button className="btn-warning float-right">Edit Game</button> : <></>}

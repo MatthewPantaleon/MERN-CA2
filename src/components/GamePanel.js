@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-02-06T12:50:48+00:00
- * @Last modified time: 2020-02-13T15:14:07+00:00
+ * @Last modified time: 2020-02-13T18:35:30+00:00
  */
 
  import React, { Component, Fragment } from 'react';
@@ -41,6 +41,7 @@
         {this.state.switchPanel  ? <StorePanel
           genres={this.props.genres}
           games={this.props.games}
+          userGames={this.props.userGames}
           companyName={this.props.companyName}
           companyIds={this.props.companyIds}
           addToLibrary={this.props.addToLibrary}

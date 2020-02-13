@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-02-11T18:21:46+00:00
- * @Last modified time: 2020-02-13T18:12:53+00:00
+ * @Last modified time: 2020-02-13T18:47:46+00:00
  */
 
 
@@ -49,7 +49,7 @@
             </div>
             <div className="col-6">
               <select className="form-control" onChange={(e) => this.genreChange(e)}>
-                <option value="all">Select Genre</option>
+                <option value="all">All Genres</option>
                 {this.props.genres.map((e, i) => {
                   return(
                     <Fragment key={i}>
@@ -77,11 +77,30 @@
             }).map((e, i) => {
               return(
                 <Fragment key={i}>
-                  <a href="#" className="list-group-item list-group-item-action bg-secondary text-white">
-                  {e.name}
-                  <button className="btn-primary float-right ml-3" onClick={() => this.props.addToLibrary(e)}>Add to Library</button>
-                  {this.props.companyIds.includes(e._id) ? <button className="btn-warning float-right">Edit Game</button> : <></>}
-                  {this.props.companyIds.includes(e._id) ? <button className="btn-danger float-right">Delete Game</button> : <></>}
+                  <a className="list-group-item list-group-item-action bg-secondary text-white">
+                    <div className="row">
+                      <div className="col-3">
+                        {e.name}
+                      </div>
+                      <div className="col-2">
+                        <p>€{e.price}</p>
+                      </div>
+                      <div className="col-7">
+                        <div className="row">
+                        <div className="col-4">
+                        {this.props.userGames.findIndex(g => g._id == e._id) < 0 ? <button className="btn-primary" onClick={() => this.props.addToLibrary(e)}>Add To Library</button> : <></>}
+                        </div>
+                        <div className="col-4">
+                        {this.props.companyIds.includes(e._id) ? <button className="btn-warning">Edit Game</button> : <></>}
+                        </div>
+
+                        <div className="col-4">
+                        {this.props.companyIds.includes(e._id) ? <button className="btn-danger">Delete Game</button> : <></>}
+                        </div>
+                        </div>
+                      </div>
+
+                    </div>
                   </a>
                 </Fragment>
               );

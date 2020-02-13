@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-01-21T13:58:52+00:00
- * @Last modified time: 2020-02-10T16:26:35+00:00
+ * @Last modified time: 2020-02-13T18:21:48+00:00
  */
 
  const mongoose = require("mongoose");
@@ -11,7 +11,8 @@
    },
    games:[{
      type: mongoose.Schema.Types.ObjectId,
-     ref: "Game"
+     ref: "Game",
+     unique: true
    }]
  });
 
