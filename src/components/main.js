@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-02-04T15:59:03+00:00
- * @Last modified time: 2020-02-13T18:39:08+00:00
+ * @Last modified time: 2020-02-13T19:03:34+00:00
  */
 
 
@@ -54,7 +54,7 @@
      });
    }
 
-   checkUserLibrarygames = async (newValue) => {
+   checkUserLibrarygames = (newValue) => {
      let temp = this.state.userLibraryGames.games;
      // console.log(temp[0]._id);
      // console.log(newValue._id);
@@ -65,11 +65,14 @@
        return;
      }else{
        temp.push(newValue);
-       this.setState({userLibraryGames: temp}, () => {
+       console.log(this.state.userLibraryGames);
+       this.setState({userLibraryGames: {games: temp}}, async () => {
+         console.log(this.state);
          console.log(this.state.userLibraryGames);
+         console.log(await ApiLoader("library/" + localStorage.getItem("library_id"), "post", {gameId: newValue._id}).then((d) => d.data));
        });
        // console.log(await axios.post(process.env.REACT_APP_BACKEND_URI + "/library/" + newValue._id).then((d) => d.data));
-       console.log(await ApiLoader("library/" + localStorage.getItem("library_id"), "post", {gameId: newValue._id}).then((d) => d.data));
+
        // this.setState({userLibraryGames: await axios.post(process.env.REACT_APP_BACKEND_URI + "/library/" + newValue._id).then((d) => d.data)});
      }
 
@@ -91,17 +94,18 @@
                   genres={this.state.genres}
                   games={this.state.userLibraryGames.games}
                   company={this.state.companyName}
-                  companyIds={this.state.companyGameIds}
+                  companyIds={this.state.companyGameIds || []}
                   companyName={this.state.companyName}
                 />
               </div>
               <div className="col-8">
+
                 <GamePanel
                   games={this.state.games}
                   userGames={this.state.userLibraryGames.games}
                   genres={this.state.genres}
                   companyName={this.state.companyName}
-                  companyIds={this.state.companyGameIds}
+                  companyIds={this.state.companyGameIds || []}
                   addToLibrary={this.checkUserLibrarygames}
                 />
               </div>

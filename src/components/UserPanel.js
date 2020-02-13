@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-02-06T12:39:02+00:00
- * @Last modified time: 2020-02-13T18:39:53+00:00
+ * @Last modified time: 2020-02-13T18:55:22+00:00
  */
 
 import React, { Component, Fragment } from 'react';
@@ -40,7 +40,7 @@ class UserPanel extends Component{
         <div className="card" style={{border: "none"}}>
           <div className="card-body bg-dark p-1">
 
-            {/* Search form function fir library */}
+            {/* Search form function for library */}
             <input className="form-control mt-3" type="text" placeholder="Search" disabled={this.props.games.length == 0} onChange={(e) => this.searchChange(e)}/>
 
             {/* Search based on Genre*/}
