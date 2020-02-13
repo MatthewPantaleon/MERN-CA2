@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-02-06T12:39:02+00:00
- * @Last modified time: 2020-02-13T17:59:41+00:00
+ * @Last modified time: 2020-02-13T18:13:18+00:00
  */
 
 import React, { Component, Fragment } from 'react';
@@ -15,7 +15,7 @@ class UserPanel extends Component{
       games: [],
       genres: [],
       term: '',
-      genreId: 'all'
+      genreId: "all"
     };
   }
 
@@ -41,11 +41,11 @@ class UserPanel extends Component{
           <div className="card-body bg-dark p-1">
 
             {/* Search form function fir library */}
-            <input className="form-control mt-3" type="text" placeholder="Search" disabled={this.props.games.length == 0} />
+            <input className="form-control mt-3" type="text" placeholder="Search" disabled={this.props.games.length == 0} onChange={(e) => this.searchChange(e)}/>
 
             {/* Search based on Genre*/}
-            <select className="form-control mt-3" disabled={this.props.games.length == 0}>
-              <option value="none">All Genres</option>
+            <select className="form-control mt-3" disabled={this.props.games.length == 0} onChange={(e) => this.genreChange(e)}>
+              <option value="all">All Genres</option>
               {this.props.genres.map((e, i) => {
                 return (
                 <Fragment key={i}>
@@ -53,10 +53,19 @@ class UserPanel extends Component{
                 </Fragment>
                 );
               })}
+              {this.props.companyName !== "" ? <option value="company">{this.props.companyName}</option> : <></>}
             </select>
 
             <hr className="m-0 p-0 mt-3 mb-3" style={{border: "2px solid black"}}/>
-            {this.props.games.length > 0 ? this.props.games.map((e, i) => {
+            {this.props.games.length > 0 ? this.props.games.filter((e, i) => {
+              //if genres is also filtered
+                if(this.state.genreId == "all"){
+                  return e.name.toLowerCase().includes(this.state.term.toLowerCase());
+                }else if(this.state.genreId == "company"){
+                  return e.name.toLowerCase().includes(this.state.term.toLowerCase()) && this.props.companyIds.includes(e._id);
+                }
+                return e.name.toLowerCase().includes(this.state.term.toLowerCase()) && e.genres.includes(this.state.genreId);
+              }).map((e, i) => {
               return(
                 <Fragment key={i}>
                   <a href="#" className="list-group-item list-group-item-action bg-secondary text-white">

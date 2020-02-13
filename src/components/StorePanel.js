@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-02-11T18:21:46+00:00
- * @Last modified time: 2020-02-13T16:26:03+00:00
+ * @Last modified time: 2020-02-13T18:12:53+00:00
  */
 
 
@@ -57,7 +57,7 @@
                     </Fragment>
                   );
                 })}
-                {this.props.companyName !== "" ? <option value="none">{this.props.companyName}</option> : <></>}
+                {this.props.companyName !== "" ? <option value="company">{this.props.companyName}</option> : <></>}
               </select>
             </div>
           </div>
@@ -70,6 +70,8 @@
               //if genres is also filtered
               if(this.state.genreId == "all"){
                 return e.name.toLowerCase().includes(this.state.term.toLowerCase());
+              }else if(this.state.genreId == "company"){
+                return e.name.toLowerCase().includes(this.state.term.toLowerCase()) && this.props.companyIds.includes(e._id);
               }
               return e.name.toLowerCase().includes(this.state.term.toLowerCase()) && e.genres.includes(this.state.genreId);
             }).map((e, i) => {

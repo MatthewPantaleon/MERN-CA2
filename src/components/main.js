@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-02-04T15:59:03+00:00
- * @Last modified time: 2020-02-13T17:58:14+00:00
+ * @Last modified time: 2020-02-13T18:04:55+00:00
  */
 
 
@@ -80,7 +80,13 @@
           <div className="card-body bg-secondary">
             <div className="row">
               <div className="col-4">
-                <UserPanel genres={this.state.genres} games={this.state.userLibraryGames.games} company={this.state.companyName} companyIds={this.state.companyGameIds}/>
+                <UserPanel
+                  genres={this.state.genres}
+                  games={this.state.userLibraryGames.games}
+                  company={this.state.companyName}
+                  companyIds={this.state.companyGameIds}
+                  companyName={this.state.companyName}
+                />
               </div>
               <div className="col-8">
                 <GamePanel
