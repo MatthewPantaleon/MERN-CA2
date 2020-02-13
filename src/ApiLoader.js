@@ -1,13 +1,13 @@
 /**
  * @Date:   2020-02-04T15:18:08+00:00
- * @Last modified time: 2020-02-11T15:33:43+00:00
+ * @Last modified time: 2020-02-13T16:52:14+00:00
  */
 
 import axios from 'axios';
 import $ from 'jquery';
 
 //pass in the collection name, method and optional data and optional callbacks
-export default async function ApiLoader(collection, auth){
+export default async function ApiLoader(collection, method, auth){
   if(auth === undefined){
     auth = false;
   }
@@ -27,7 +27,7 @@ export default async function ApiLoader(collection, auth){
   // });
 
   axios.defaults.headers.common['Authorization'] = localStorage.getItem('token');
-  result = await axios.get(process.env.REACT_APP_BACKEND_URI + "/" + collection).then((r) => {
+  result = await axios[method](process.env.REACT_APP_BACKEND_URI + "/" + collection).then((r) => {
     return r.data;
   }).catch((r) => {
     return r;

@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-02-04T15:59:03+00:00
- * @Last modified time: 2020-02-13T16:32:09+00:00
+ * @Last modified time: 2020-02-13T16:52:04+00:00
  */
 
 
@@ -8,6 +8,7 @@
  import 'bootstrap/dist/css/bootstrap.min.css';
  import authUser from '../auth_components/authUser';
  import ApiLoader from './../ApiLoader';
+ import axios from 'axios';
 
  import UserPanel from './UserPanel';
  import GamePanel from './GamePanel';
@@ -33,19 +34,12 @@
      }, async (e) => {
        // console.log(await ApiLoader("genres"));
        // console.log("I SHould be below");
-       let genres = await ApiLoader("genres").then((d) => {return d.data;});
-       let games = await ApiLoader("games").then((d) => {return d.data;});
-       let companyDetail = await ApiLoader("company/" + localStorage.getItem("company_id")).then((d) => d).catch((d) => {return {data: [], name: ""}});
+       let genres = await ApiLoader("genres", "get").then((d) => {return d.data;});
+       let games = await ApiLoader("games", "get").then((d) => {return d.data;});
+       let companyDetail = await ApiLoader("company/" + localStorage.getItem("company_id"), "get").then((d) => d).catch((d) => {return {data: [], name: ""}});
        let companyName = companyDetail.data.name;
        let companyGameIds = companyDetail.data.games;
-       let userLibraryGames = await ApiLoader("library/" + localStorage.getItem("library_id")).then((d) => d.data);
-
-       // console.log({
-       //   genres,
-       //   games,
-       //   companyDetail,
-       //   userLibraryGames
-       // });
+       let userLibraryGames = await ApiLoader("library/" + localStorage.getItem("library_id"), "get").then((d) => d.data);
 
        this.setState({
          genres,
@@ -60,17 +54,19 @@
      });
    }
 
-   checkUserLibrarygames = (newValue) => {
+   checkUserLibrarygames = async (newValue) => {
      let temp = this.state.userLibraryGames;
      if(temp.includes(newValue)){
        alert(newValue.name + ", is already in your library!");
        return;
      }else{
        temp.push(newValue);
+       // console.log(await axios.post(process.env.REACT_APP_BACKEND_URI + "/library/" + newValue._id).then((d) => d.data));
+       console.log(await ApiLoader("library/" + newValue._id, "post").then((d) => d.data));
+       // this.setState({userLibraryGames: await axios.post(process.env.REACT_APP_BACKEND_URI + "/library/" + newValue._id).then((d) => d.data)});
      }
 
-     console.log(temp);
-     this.setState({userLibraryGames: temp}, () => console.log(this.state.userLibraryGames));
+
    };
 
    render(){
