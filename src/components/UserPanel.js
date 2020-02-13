@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-02-06T12:39:02+00:00
- * @Last modified time: 2020-02-13T19:05:41+00:00
+ * @Last modified time: 2020-02-13T20:10:46+00:00
  */
 
 import React, { Component, Fragment } from 'react';
@@ -33,6 +33,9 @@ class UserPanel extends Component{
     this.setState({genreId});
   }
 
+  removeGame(e){
+    console.log(e);
+  }
   render(){
 
     return(
@@ -70,7 +73,7 @@ class UserPanel extends Component{
                 <Fragment key={i}>
                   <a className="list-group-item list-group-item-action bg-secondary text-white">
                   {e.name}
-                  <button className="btn-danger float-right">X</button>
+                  <button className="btn-danger float-right" onClick={() => this.removeGame(e._id)}>X</button>
                   {this.props.companyIds.includes(e._id) ? <button className="btn-warning float-right">Edit Game</button> : <></>}
                   </a>
                 </Fragment>
