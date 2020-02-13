@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-02-06T12:39:02+00:00
- * @Last modified time: 2020-02-13T18:55:22+00:00
+ * @Last modified time: 2020-02-13T19:05:41+00:00
  */
 
 import React, { Component, Fragment } from 'react';
@@ -53,7 +53,7 @@ class UserPanel extends Component{
                 </Fragment>
                 );
               })}
-              {this.props.companyName !== "" ? <option value="company">{this.props.companyName}</option> : <></>}
+              {this.props.companyName !== undefined ? <option value="company">{this.props.companyName}</option> : <></>}
             </select>
 
             <hr className="m-0 p-0 mt-3 mb-3" style={{border: "2px solid black"}}/>

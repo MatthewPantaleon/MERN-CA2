@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-02-11T18:21:46+00:00
- * @Last modified time: 2020-02-13T18:47:46+00:00
+ * @Last modified time: 2020-02-13T19:05:56+00:00
  */
 
 
@@ -57,7 +57,7 @@
                     </Fragment>
                   );
                 })}
-                {this.props.companyName !== "" ? <option value="company">{this.props.companyName}</option> : <></>}
+                {this.props.companyName !== undefined ? <option value="company">{this.props.companyName}</option> : <></>}
               </select>
             </div>
           </div>
