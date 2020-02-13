@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-02-04T15:59:03+00:00
- * @Last modified time: 2020-02-13T14:49:26+00:00
+ * @Last modified time: 2020-02-13T16:32:09+00:00
  */
 
 
@@ -61,7 +61,16 @@
    }
 
    checkUserLibrarygames = (newValue) => {
-     this.setState({userLibraryGames: newValue});
+     let temp = this.state.userLibraryGames;
+     if(temp.includes(newValue)){
+       alert(newValue.name + ", is already in your library!");
+       return;
+     }else{
+       temp.push(newValue);
+     }
+
+     console.log(temp);
+     this.setState({userLibraryGames: temp}, () => console.log(this.state.userLibraryGames));
    };
 
    render(){
@@ -75,7 +84,7 @@
           <div className="card-body bg-secondary">
             <div className="row">
               <div className="col-4">
-                <UserPanel genres={this.state.genres} games={this.state.userLibraryGames} company={this.state.companyName}/>
+                <UserPanel genres={this.state.genres} games={this.state.userLibraryGames} company={this.state.companyName} companyIds={this.state.companyGameIds}/>
               </div>
               <div className="col-8">
                 <GamePanel

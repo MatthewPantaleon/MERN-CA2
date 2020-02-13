@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-02-06T15:23:48+00:00
- * @Last modified time: 2020-02-11T10:35:18+00:00
+ * @Last modified time: 2020-02-13T16:39:07+00:00
  */
 
 
@@ -104,7 +104,7 @@ router.get('/seed', async (req, res) => {
     libraries.forEach(async (e, i) => {
       e.games = [];
       await Library.updateOne(e._id, e, (err, newLibrary) => {
-        
+
       });
     });
   });
@@ -136,28 +136,6 @@ router.get('/seed', async (req, res) => {
         games = gs;
     });
 
-    // params.companies.forEach(async (e, i) => {
-    //   let c = new Company();
-    //   // console.log(e.name);
-    //   if(c.games.length > 0){
-    //     console.log("\x1b[33m", "Companies Alreadt have games!");
-    //   }
-    //
-    //   c.name = e.name;
-    //   c.company_id = e.company_id;
-    //   let temp = [];
-    //   games.forEach((e, i) => {
-    //     if(params.games[i].c == c.company_id){
-    //       temp.push(e._id);
-    //   }
-    //   });
-    //   c.games = temp;
-    //
-    //   await c.save((err, com) => {
-    //     console.log("\x1b[33m", "Inserted Compnay: " + com.name + ". Add Game Amount: " + com.games.length);
-    //   });
-    //
-    // });
     for(let i = 0; i < params.companies.length; i++){
         let e = params.companies[i];
         let c = new Company();
@@ -171,9 +149,9 @@ router.get('/seed', async (req, res) => {
         c.company_id = e.company_id;
         let temp = [];
         games.forEach((e, i) => {
-          if(params.games[i].c == c.company_id){
+          if(params.games[i].c === c.company_id){
             temp.push(e._id);
-        }
+          }
         });
         c.games = temp;
 

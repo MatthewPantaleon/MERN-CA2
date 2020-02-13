@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-02-11T18:21:46+00:00
- * @Last modified time: 2020-02-13T16:23:08+00:00
+ * @Last modified time: 2020-02-13T16:26:03+00:00
  */
 
 
@@ -34,6 +34,8 @@
      let genreId = e.target.value;
      this.setState({genreId});
    }
+
+
 
 
    render(){
@@ -75,7 +77,7 @@
                 <Fragment key={i}>
                   <a href="#" className="list-group-item list-group-item-action bg-secondary text-white">
                   {e.name}
-                  <button className="btn-primary float-right ml-3">Add to Library</button>
+                  <button className="btn-primary float-right ml-3" onClick={() => this.props.addToLibrary(e)}>Add to Library</button>
                   {this.props.companyIds.includes(e._id) ? <button className="btn-warning float-right">Edit Game</button> : <></>}
                   {this.props.companyIds.includes(e._id) ? <button className="btn-danger float-right">Delete Game</button> : <></>}
                   </a>
