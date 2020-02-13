@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-02-11T18:30:44+00:00
- * @Last modified time: 2020-02-11T18:56:18+00:00
+ * @Last modified time: 2020-02-13T13:13:37+00:00
  */
 
  import React, { Component, Fragment } from 'react';
@@ -14,13 +14,15 @@
 
      this.state = {
        games: [],
-
+       company: {},
+       existingGame: {}
      };
    }
 
-   componentDidMount(){
+   async componentDidMount(){
      // console.log(ApiLoader("games", false));
-
+     let companyDetail = await ApiLoader("company/" + localStorage.getItem("company_id")).then((d) => d.data).catch((d) => {return {data: [], name: ""}});
+     this.setState({company: companyDetail}, () => console.log(this.state.company));
    }
 
 
@@ -28,10 +30,9 @@
      return (
        <>
         <div className="card" style={{border: "none"}}>
-          <div className="card-header bg-dark">
-            <div className="row">
-              
-            </div>
+          <div className="card-header bg-dark text-white">
+            <h5>Add Game</h5>
+            <small>{this.state.company.name}</small>
           </div>
           <hr className="m-0 p-0" style={{border: "2px solid black"}}/>
           <div className="card-body bg-dark">

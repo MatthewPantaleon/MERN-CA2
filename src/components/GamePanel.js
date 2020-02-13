@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-02-06T12:50:48+00:00
- * @Last modified time: 2020-02-11T19:04:12+00:00
+ * @Last modified time: 2020-02-13T15:14:07+00:00
  */
 
  import React, { Component, Fragment } from 'react';
@@ -24,16 +24,27 @@
 
    }
 
-   switchPanel(){
-     this.setState({switchPanel: !this.state.switchPanel});
+   switchPanel(e){
+     this.setState({switchPanel: e});
    }
 
 
    render(){
      return (
        <>
-       <button onClick={() => this.switchPanel()}>Switch</button>
-        {this.state.switchPanel ? <StorePanel genres={this.props.genres} games={this.props.games} companyName={this.props.companyName}/> : <FormPanel />}
+        <div className="card" style={{border: "none"}}>
+          <div className="card-header bg-dark">
+            <button className="btn btn-primary" onClick={() => this.switchPanel(true)}>Store Page</button>
+            {localStorage.getItem("company_id") !== "null" ? <button className="btn btn-primary float-right" onClick={() => this.switchPanel(false)}>Add Game</button> : <></>}
+          </div>
+        </div>
+        {this.state.switchPanel  ? <StorePanel
+          genres={this.props.genres}
+          games={this.props.games}
+          companyName={this.props.companyName}
+          companyIds={this.props.companyIds}
+          addToLibrary={this.props.addToLibrary}
+        /> : <FormPanel />}
        </>
      );
    }

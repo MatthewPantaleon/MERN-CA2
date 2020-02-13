@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-02-04T15:59:03+00:00
- * @Last modified time: 2020-02-11T19:04:06+00:00
+ * @Last modified time: 2020-02-13T14:49:26+00:00
  */
 
 
@@ -21,7 +21,8 @@
        genres: [],
        companyGameIds: [],
        userLibraryGames: [],
-       companyName: ""
+       companyName: "",
+       storePage: true
      };
    }
 
@@ -35,8 +36,8 @@
        let genres = await ApiLoader("genres").then((d) => {return d.data;});
        let games = await ApiLoader("games").then((d) => {return d.data;});
        let companyDetail = await ApiLoader("company/" + localStorage.getItem("company_id")).then((d) => d).catch((d) => {return {data: [], name: ""}});
-       let companyName = companyDetail.name;
-       let companyGameIds = companyDetail.data;
+       let companyName = companyDetail.data.name;
+       let companyGameIds = companyDetail.data.games;
        let userLibraryGames = await ApiLoader("library/" + localStorage.getItem("library_id")).then((d) => d.data);
 
        // console.log({
@@ -59,6 +60,10 @@
      });
    }
 
+   checkUserLibrarygames = (newValue) => {
+     this.setState({userLibraryGames: newValue});
+   };
+
    render(){
      return(
        <>
@@ -73,7 +78,13 @@
                 <UserPanel genres={this.state.genres} games={this.state.userLibraryGames} company={this.state.companyName}/>
               </div>
               <div className="col-8">
-                <GamePanel games={this.state.games} genres={this.state.genres} companyName={this.state.companyName}/>
+                <GamePanel
+                  games={this.state.games}
+                  genres={this.state.genres}
+                  companyName={this.state.companyName}
+                  companyIds={this.state.companyGameIds}
+                  addToLibrary={this.checkUserLibrarygames}
+                />
               </div>
             </div>
           </div>

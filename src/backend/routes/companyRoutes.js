@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-02-11T09:33:00+00:00
- * @Last modified time: 2020-02-11T17:53:02+00:00
+ * @Last modified time: 2020-02-13T13:11:36+00:00
  */
 
 const express = require("express");
@@ -18,7 +18,7 @@ const Company = require("./../models/Company");
 router.get("/company/:id", (req, res) => {
   if(req.params.id !== "null"){
     Company.findOne({company_id: req.params.id}, (err, company) => {
-      res.json({data: company.games, name: company.name});
+      res.json({data: company, name: company.name});
     });
   }else{
     res.json({data: [], name: ""});

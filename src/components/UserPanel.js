@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-02-06T12:39:02+00:00
- * @Last modified time: 2020-02-11T16:55:17+00:00
+ * @Last modified time: 2020-02-13T12:12:34+00:00
  */
 
 import React, { Component, Fragment } from 'react';
@@ -21,15 +21,13 @@ class UserPanel extends Component{
 
   }
 
+
+
   render(){
 
     return(
       <>
         <div className="card" style={{border: "none"}}>
-          <div className="card-header bg-dark" style={{borderRadius: 0}}>
-            <button className="btn btn-primary">Store Page</button>
-            <button className="btn btn-primary float-right">Add Game</button>
-          </div>
           <div className="card-body bg-dark p-1">
 
             {/* Search form function fir library */}
@@ -37,7 +35,7 @@ class UserPanel extends Component{
 
             {/* Search based on Genre*/}
             <select className="form-control mt-3" disabled={this.props.games.length == 0}>
-              <option value="none">Select Genre</option>
+              <option value="none">All Genres</option>
               {this.props.genres.map((e, i) => {
                 return (
                 <Fragment key={i}>
