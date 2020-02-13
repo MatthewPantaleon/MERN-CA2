@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-02-06T12:39:02+00:00
- * @Last modified time: 2020-02-13T16:34:29+00:00
+ * @Last modified time: 2020-02-13T17:59:41+00:00
  */
 
 import React, { Component, Fragment } from 'react';
@@ -14,6 +14,8 @@ class UserPanel extends Component{
     this.state = {
       games: [],
       genres: [],
+      term: '',
+      genreId: 'all'
     };
   }
 
@@ -21,7 +23,15 @@ class UserPanel extends Component{
 
   }
 
+  searchChange(e){
+    let term = e.target.value;
+    this.setState({term});
+  }
 
+  genreChange(e){
+    let genreId = e.target.value;
+    this.setState({genreId});
+  }
 
   render(){
 

@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-02-04T15:59:03+00:00
- * @Last modified time: 2020-02-13T16:52:04+00:00
+ * @Last modified time: 2020-02-13T17:58:14+00:00
  */
 
 
@@ -21,7 +21,7 @@
        games: [],
        genres: [],
        companyGameIds: [],
-       userLibraryGames: [],
+       userLibraryGames: {games: []},
        companyName: "",
        storePage: true
      };
@@ -55,14 +55,14 @@
    }
 
    checkUserLibrarygames = async (newValue) => {
-     let temp = this.state.userLibraryGames;
+     let temp = this.state.userLibraryGames.games;
      if(temp.includes(newValue)){
        alert(newValue.name + ", is already in your library!");
        return;
      }else{
        temp.push(newValue);
        // console.log(await axios.post(process.env.REACT_APP_BACKEND_URI + "/library/" + newValue._id).then((d) => d.data));
-       console.log(await ApiLoader("library/" + newValue._id, "post").then((d) => d.data));
+       console.log(await ApiLoader("library/" + localStorage.getItem("library_id"), "post", {gameId: newValue._id}).then((d) => d.data));
        // this.setState({userLibraryGames: await axios.post(process.env.REACT_APP_BACKEND_URI + "/library/" + newValue._id).then((d) => d.data)});
      }
 
@@ -80,7 +80,7 @@
           <div className="card-body bg-secondary">
             <div className="row">
               <div className="col-4">
-                <UserPanel genres={this.state.genres} games={this.state.userLibraryGames} company={this.state.companyName} companyIds={this.state.companyGameIds}/>
+                <UserPanel genres={this.state.genres} games={this.state.userLibraryGames.games} company={this.state.companyName} companyIds={this.state.companyGameIds}/>
               </div>
               <div className="col-8">
                 <GamePanel

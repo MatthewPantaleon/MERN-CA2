@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-02-11T09:59:48+00:00
- * @Last modified time: 2020-02-13T16:48:41+00:00
+ * @Last modified time: 2020-02-13T17:51:31+00:00
  */
 
 const express = require("express");
@@ -17,7 +17,8 @@ const Library = require("./../models/Library");
 
 router.get("/library/:id", (req, res) => {
  // res.json({owo: "LMAO"});
- Library.find({user_id: req.params.id}, (err, library) => {
+ Library.findOne({_id: req.params.id}, (err, library) => {
+   console.log(library);
    res.json({data: library});
  }).populate("games");
 
@@ -25,8 +26,13 @@ router.get("/library/:id", (req, res) => {
 
 
 router.post("/library/:id", (req, res) => {
-  console.log("I Am here");
-  res.json({data: "coolio"});
+  // res.json({data: {message: "Coolio", library_id: req.params.id, body: req.body}});
+  Library.findOne({_id: req.params.id}, async (err, library) => {
+    library.games.push(req.body.gameId);
+    await Library.findByIdAndUpdate(library._id, library, {new: true}, (err, library) => {
+      res.json({data: library});
+    })
+  });
 });
 
 module.exports = router;
