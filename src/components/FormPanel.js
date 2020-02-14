@@ -1,12 +1,13 @@
 /**
  * @Date:   2020-02-11T18:30:44+00:00
- * @Last modified time: 2020-02-14T14:38:43+00:00
+ * @Last modified time: 2020-02-14T15:36:54+00:00
  */
 
  import React, { Component, Fragment } from 'react';
  import 'bootstrap/dist/css/bootstrap.min.css';
  import authUser from '../auth_components/authUser';
  import ApiLoader from './../ApiLoader';
+ import { Alert } from 'react-bootstrap';
 
  class FormPanel extends Component{
    constructor(props){
@@ -19,19 +20,19 @@
        name: "",
        description: "",
        price: "",
-       genres: []
+       genres: [],
+       errors: {}
      };
    }
 
    async componentDidMount(){
      // console.log(ApiLoader("games", false));
-     let companyDetail = await ApiLoader("company/" + localStorage.getItem("company_id"), "get").then((d) => d.data).catch((d) => {return {data: [], name: ""}});
+     let companyDetail = await ApiLoader("company/" + localStorage.getItem("company_id"), "get").then((d) => d.data);
      this.setState({company: companyDetail});
    }
 
    async submitGame(e){
      e.preventDefault();
-     console.log("NEW GAME");
      // console.log(this.state.company);
      let data = {
        companyId: this.state.company._id,
@@ -43,7 +44,10 @@
        }
      };
      console.log(data);
-     let newGame = await ApiLoader("games", "post", data);
+     let newGame = await ApiLoader("games", "post", data).then((d) => d.data).catch((d) => "what even");//Catch Doesn't work !??!?!?!?!?!?
+     //Errors seem to resolve at then?!?!?
+     console.log(newGame);
+     // this.setState({errors: new});
    }
 
    changeData(e){
@@ -86,7 +90,7 @@
                 <div className="input-group-prepend">
                   <div className="input-group-text">€</div>
                 </div>
-                <input type="text" className="form-control" name="price" onChange={(e) => this.changeData(e)}/>
+                <input type="text" className="form-control" name="price" onChange={(e) => this.changeData(e)} autoComplete="off"/>
               </div>
             </div>
 
@@ -98,6 +102,7 @@
                   })}
                 </select>
               </div>
+            {<Alert variant="danger">Test</Alert>}
             <button className="btn btn-primary">Add New Game</button>
           </form>
           </div>
