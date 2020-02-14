@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-02-04T15:59:03+00:00
- * @Last modified time: 2020-02-13T19:03:34+00:00
+ * @Last modified time: 2020-02-14T13:37:17+00:00
  */
 
 
@@ -45,7 +45,7 @@
          genres,
          games,
          companyGameIds,
-         userLibraryGames,
+         userLibraryGames: userLibraryGames || {games: []},
          companyName
        }, () => {
          console.log(this.state);
@@ -65,19 +65,28 @@
        return;
      }else{
        temp.push(newValue);
-       console.log(this.state.userLibraryGames);
+       // console.log(this.state.userLibraryGames);
        this.setState({userLibraryGames: {games: temp}}, async () => {
-         console.log(this.state);
-         console.log(this.state.userLibraryGames);
-         console.log(await ApiLoader("library/" + localStorage.getItem("library_id"), "post", {gameId: newValue._id}).then((d) => d.data));
+         // console.log(this.state);
+         // console.log(this.state.userLibraryGames);
+         await ApiLoader("library/" + localStorage.getItem("library_id"), "post", {gameId: newValue._id}).then((d) => d.data);
        });
        // console.log(await axios.post(process.env.REACT_APP_BACKEND_URI + "/library/" + newValue._id).then((d) => d.data));
 
        // this.setState({userLibraryGames: await axios.post(process.env.REACT_APP_BACKEND_URI + "/library/" + newValue._id).then((d) => d.data)});
      }
+   };
 
+   removeGameFromLibrary = (id) => {
+     // console.log(id);
+     // console.log(this.state.userLibraryGames.games.filter(g => g._id != id));
+
+     this.setState({userLibraryGames: {games: this.state.userLibraryGames.games.filter(g => g._id != id)}}, async () => {
+       await ApiLoader("library/" + localStorage.getItem("library_id"), "delete", {data: {gameId: id}});
+     });
 
    };
+
 
    render(){
      return(
@@ -96,6 +105,7 @@
                   company={this.state.companyName}
                   companyIds={this.state.companyGameIds || []}
                   companyName={this.state.companyName}
+                  removeGame={this.removeGameFromLibrary}
                 />
               </div>
               <div className="col-8">
