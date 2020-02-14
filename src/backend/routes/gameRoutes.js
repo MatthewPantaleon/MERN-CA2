@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-02-10T17:09:04+00:00
- * @Last modified time: 2020-02-14T15:59:46+00:00
+ * @Last modified time: 2020-02-14T16:59:49+00:00
  */
 
 const express = require("express");
@@ -14,8 +14,9 @@ const router = require('express').Router();
 
 const Game = require("./../models/Game");
 const Company = require("./../models/Company");
-// const Library = require("./../models/Library");
+const Library = require("./../models/Library");
 
+//get all games
 router.get("/games", (req, res) => {
   // res.json({owo: "LMAO"});
   Game.find({}, (err, games) => {
@@ -24,7 +25,7 @@ router.get("/games", (req, res) => {
 
 });
 
-
+//add a game
 router.post("/games", async (req, res) => {
 
   console.log(req.body);
@@ -53,9 +54,29 @@ router.post("/games", async (req, res) => {
     });
 
   });
+});
 
+//deleting a game
+router.delete("/games/:id", async (req, res) => {
+  // console.log(req.params.id);
+  // console.log(req.body.libraryId);
+  let id = req.params.id;
+  let libId = req.body.libraryId;
 
+  await Library.find({games: id}, async (err, libraries) => {
 
+    await libraries.forEach(async (lib, i) => {
+      libraries[i].games = lib.games.filter(e => e != id);
+      await lib.save();
+    });
+
+    await Library.findOne(libId._id, (err, lib) => {
+      return res.json({data: lib});
+    }).populate("games");
+
+  });
+
+  // res.json({data: "eeeyy"});
 });
 
 module.exports = router;
