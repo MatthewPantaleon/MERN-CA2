@@ -1,11 +1,10 @@
 /**
  * @Date:   2020-02-11T18:30:44+00:00
- * @Last modified time: 2020-02-14T18:44:30+00:00
+ * @Last modified time: 2020-02-14T20:34:43+00:00
  */
 
- import React, { Component, Fragment } from 'react';
+ import React, { Component } from 'react';
  import 'bootstrap/dist/css/bootstrap.min.css';
- import authUser from '../auth_components/authUser';
  import ApiLoader from './../ApiLoader';
  import { Alert } from 'react-bootstrap';
 
@@ -75,7 +74,7 @@
    }
 
    changeData(e){
-     if(e.target.name != "genres"){
+     if(e.target.name !== "genres"){
        this.setState({[e.target.name]: e.target.value});
      }else{
        let values = [];

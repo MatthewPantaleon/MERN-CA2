@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-02-04T15:59:03+00:00
- * @Last modified time: 2020-02-14T19:43:40+00:00
+ * @Last modified time: 2020-02-14T20:33:53+00:00
  */
 
 
@@ -8,7 +8,6 @@
  import 'bootstrap/dist/css/bootstrap.min.css';
  import authUser from '../auth_components/authUser';
  import ApiLoader from './../ApiLoader';
- import axios from 'axios';
 
  import UserPanel from './UserPanel';
  import GamePanel from './GamePanel';
@@ -49,7 +48,7 @@
          userLibraryGames: userLibraryGames || {games: []},
          companyName
        }, () => {
-         console.log(this.state);
+         // console.log(this.state);
        });
 
      });
@@ -62,7 +61,7 @@
      // console.log(newValue._id);
 
      // console.log(temp.findIndex(t => t._id == newValue._id));
-     if(temp.findIndex(t => t._id == newValue._id) >= 0){
+     if(temp.findIndex(t => t._id === newValue._id) >= 0){
        alert(newValue.name + ", is already in your library!");
        return;
      }else{
@@ -75,7 +74,7 @@
 
    //removes a game from the currently logged in user
    removeGameFromLibrary = (id) => {
-     this.setState({userLibraryGames: {games: this.state.userLibraryGames.games.filter(g => g._id != id)}}, async () => {
+     this.setState({userLibraryGames: {games: this.state.userLibraryGames.games.filter(g => g._id !== id)}}, async () => {
        await ApiLoader("library/" + localStorage.getItem("library_id"), "delete", {data: {gameId: id}});
      });
 
@@ -101,13 +100,13 @@
 
    editGame = (editedGame) => {
      console.log("GAME ID: " + editedGame._id);
-     let gameIndex = this.state.games.findIndex(g => g._id == editedGame._id);
+     let gameIndex = this.state.games.findIndex(g => g._id === editedGame._id);
      let allGames = this.state.games;
      allGames[gameIndex] = editedGame;
 
 
      let userLibrary = this.state.userLibraryGames.games;
-     let userGameIndex = userLibrary.findIndex(g => g._id == editedGame._id);
+     let userGameIndex = userLibrary.findIndex(g => g._id === editedGame._id);
      userLibrary[userGameIndex] = editedGame;
      this.setState({userLibraryGames: {games: userLibrary}, games: allGames});
    };

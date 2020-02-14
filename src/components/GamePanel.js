@@ -1,11 +1,10 @@
 /**
  * @Date:   2020-02-06T12:50:48+00:00
- * @Last modified time: 2020-02-14T20:30:38+00:00
+ * @Last modified time: 2020-02-14T20:35:25+00:00
  */
 
- import React, { Component, Fragment } from 'react';
+ import React, { Component } from 'react';
  import 'bootstrap/dist/css/bootstrap.min.css';
- import ApiLoader from './../ApiLoader';
  import StorePanel from './StorePanel';
  import FormPanel from './FormPanel';
  import ViewPanel from './ViewPanel';
@@ -40,7 +39,7 @@
             {localStorage.getItem("company_id") !== "null" ? <button className="btn btn-primary float-right" onClick={() => this.switchPanel("add")}>Add Game</button> : <></>}
           </div>
         </div>
-        {this.state.switchPanel == "store"  ? <StorePanel
+        {this.state.switchPanel === "store"  ? <StorePanel
           genres={this.props.genres}
           games={this.props.games}
           userGames={this.props.userGames}
@@ -52,14 +51,14 @@
           deleteGame={this.props.deleteGame}
           /> : <> </>}
 
-          {this.state.switchPanel == "add" ? <FormPanel
+          {this.state.switchPanel === "add" ? <FormPanel
           genres={this.props.genres}
           goBack={this.switchPanel}
           addNewGame={this.props.addNewGame}
           gameToEdit={{name: undefined, description: undefined, price: undefined, genres: undefined}}
           /> : <></>}
 
-          {this.state.switchPanel == "edit" ? <FormPanel
+          {this.state.switchPanel === "edit" ? <FormPanel
           genres={this.props.genres}
           goBack={this.switchPanel}
           addNewGame={this.props.addNewGame}
@@ -67,7 +66,7 @@
           editGame={this.props.editGame}
           /> : <></>}
 
-          {this.state.switchPanel == "view" ? <ViewPanel
+          {this.state.switchPanel === "view" ? <ViewPanel
           game={this.state.existingGame}
           genres={this.props.genres}
           addToLibrary={this.props.addToLibrary}

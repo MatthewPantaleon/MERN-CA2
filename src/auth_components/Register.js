@@ -1,11 +1,10 @@
 /**
  * @Date:   2020-02-04T12:31:47+00:00
- * @Last modified time: 2020-02-10T18:07:54+00:00
+ * @Last modified time: 2020-02-14T20:38:54+00:00
  */
 
 import React, { Component } from 'react';
 import axios from 'axios';
-import $ from 'jquery';
 import {Alert} from 'react-bootstrap';
 import authUser from './authUser';
 

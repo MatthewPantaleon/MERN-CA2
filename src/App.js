@@ -1,14 +1,13 @@
 /**
  * @Date:   2020-01-20T09:50:32+00:00
- * @Last modified time: 2020-02-11T15:32:55+00:00
+ * @Last modified time: 2020-02-14T20:39:41+00:00
  */
 
 
 
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
-import {BrowserRouter, Link, Redirect, Route} from 'react-router-dom';
+import {BrowserRouter, Redirect, Route} from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Navbar, Nav} from 'react-bootstrap';
 import axios from 'axios';
@@ -16,7 +15,6 @@ import axios from 'axios';
 import Login from './auth_components/Login';
 import Register from './auth_components/Register';
 
-import authUser from './auth_components/authUser';
 import Main from './components/main';
 
 class App extends Component{
@@ -83,10 +81,6 @@ class App extends Component{
 }
 
 class Welcome extends Component{
-  constructor(props){
-    super(props);
-  }
-
   render(){
     return(
       <>

@@ -1,13 +1,11 @@
 /**
  * @Date:   2020-02-11T18:21:46+00:00
- * @Last modified time: 2020-02-14T20:25:24+00:00
+ * @Last modified time: 2020-02-14T20:41:29+00:00
  */
 
 
  import React, { Component, Fragment } from 'react';
  import 'bootstrap/dist/css/bootstrap.min.css';
- import authUser from '../auth_components/authUser';
- import ApiLoader from './../ApiLoader';
 
  class StorePanel extends Component{
    constructor(props){
@@ -47,7 +45,7 @@
    }
 
    viewGame(g){
-     console.log(g._id);
+     // console.log(g._id);
      this.props.viewGame("view", g);
    }
 
@@ -81,16 +79,16 @@
           <ul className="list-group ">
             {this.props.games.filter((e, i) => {
               //if genres is also filtered
-              if(this.state.genreId == "all"){
+              if(this.state.genreId === "all"){
                 return e.name.toLowerCase().includes(this.state.term.toLowerCase());
-              }else if(this.state.genreId == "company"){
+              }else if(this.state.genreId === "company"){
                 return e.name.toLowerCase().includes(this.state.term.toLowerCase()) && this.props.companyIds.includes(e._id);
               }
               return e.name.toLowerCase().includes(this.state.term.toLowerCase()) && e.genres.includes(this.state.genreId);
             }).map((e, i) => {
               return(
                 <Fragment key={i}>
-                  <a className="list-group-item list-group-item-action bg-secondary text-white">
+                  <div className="list-group-item list-group-item-action bg-secondary text-white">
                     <div className="row">
                       <div className="col-3 btn text-white" onClick={() => this.viewGame(e)}>
                         <b>{e.name}</b>
@@ -101,7 +99,7 @@
                       <div className="col-7">
                         <div className="row">
                         <div className="col-4">
-                        {this.props.userGames.findIndex(g => g._id == e._id) < 0 ? <button className="btn-primary" onClick={() => this.props.addToLibrary(e)}>Add To Library</button> : <></>}
+                        {this.props.userGames.findIndex(g => g._id === e._id) < 0 ? <button className="btn-primary" onClick={() => this.props.addToLibrary(e)}>Add To Library</button> : <></>}
                         </div>
                         <div className="col-4">
                         {this.props.companyIds.includes(e._id) ? <button className="btn-warning" onClick={() => this.editGame("edit", e)}>Edit Game</button> : <></>}
@@ -114,7 +112,7 @@
                       </div>
 
                     </div>
-                  </a>
+                  </div>
                 </Fragment>
               );
             })}

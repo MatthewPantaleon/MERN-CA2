@@ -1,10 +1,9 @@
 /**
  * @Date:   2020-02-04T18:05:09+00:00
- * @Last modified time: 2020-02-11T15:00:04+00:00
+ * @Last modified time: 2020-02-14T20:36:26+00:00
  */
 
 import axios from 'axios';
-import $ from 'jquery';
 
 
 //function that can be inserted in React components to authorize any component with this function and optional callbacks for 401 and 200. Can act as a boolean
