@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-02-11T18:21:46+00:00
- * @Last modified time: 2020-02-14T19:48:29+00:00
+ * @Last modified time: 2020-02-14T20:19:59+00:00
  */
 
 
@@ -90,10 +90,10 @@
             }).map((e, i) => {
               return(
                 <Fragment key={i}>
-                  <a className="list-group-item list-group-item-action bg-secondary text-white" onClick={() => this.viewGame(e)}>
+                  <a className="list-group-item list-group-item-action bg-secondary text-white">
                     <div className="row">
-                      <div className="col-3">
-                        {e.name}
+                      <div className="col-3 btn text-white" onClick={() => this.viewGame(e)}>
+                        <b>{e.name}</b>
                       </div>
                       <div className="col-2">
                         <p>€{e.price}</p>
