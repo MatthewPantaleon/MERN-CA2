@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-02-04T15:59:03+00:00
- * @Last modified time: 2020-02-14T17:06:47+00:00
+ * @Last modified time: 2020-02-14T17:16:20+00:00
  */
 
 
@@ -91,6 +91,9 @@
    deleteGame = async (game) => {
      console.log(game._id);
      // console.log(await ApiLoader("games/" + game._id, "delete"));
+     if(!window.confirm("Are you sure you want to delete: " + game.name + "?\nAll User Libraries will remove this game.\nThis Action cannot be redone.")){
+       return;
+     }
      let d = await ApiLoader("games/" + game._id, "delete", {data: {libraryId: localStorage.getItem("library_id")}}).then(d => d.data);
      this.setState({userLibraryGames: d.userLibrary, games: d.games});
    };

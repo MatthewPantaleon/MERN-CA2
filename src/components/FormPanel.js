@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-02-11T18:30:44+00:00
- * @Last modified time: 2020-02-14T16:01:54+00:00
+ * @Last modified time: 2020-02-14T17:24:34+00:00
  */
 
  import React, { Component, Fragment } from 'react';
@@ -20,7 +20,7 @@
        name: "",
        description: "",
        price: "",
-       genres: [],
+       genres: null,
        errors: {}
      };
    }
@@ -34,6 +34,7 @@
    async submitGame(e){
      e.preventDefault();
      // console.log(this.state.company);
+     this.setState({errors: {}});
      let data = {
        companyId: this.state.company._id,
        newGame: {
@@ -46,12 +47,14 @@
      console.log(data);
      let newGame = await ApiLoader("games", "post", data).then((d) => d.data).catch((d) => "what even");//Catch Doesn't work !??!?!?!?!?!?
      //Errors seem to resolve at then?!?!?
-     console.log(newGame);
+     // console.log(newGame);
      if(newGame.success){
        delete newGame.success;
        console.log(newGame);
        this.props.addNewGame(newGame.newGame, newGame.companyGames);
        this.props.goBack(true);
+     }else{
+       this.setState({errors: newGame}, () => console.log(this.state.errors));
      }
      // this.setState({errors: new});
    }
@@ -108,7 +111,9 @@
                   })}
                 </select>
               </div>
-            {<Alert variant="danger">Test</Alert>}
+            {this.state.errors.name ? <Alert variant="danger">{this.state.errors.name.message}</Alert> : <> </>}
+            {this.state.errors.price ? <Alert variant="danger">{this.state.errors.price.message}</Alert> : <></>}
+            {this.state.errors.genres ? <Alert variant="danger">{this.state.errors.genres.message}</Alert> : <></>}
             <button className="btn btn-primary">Add New Game</button>
           </form>
           </div>

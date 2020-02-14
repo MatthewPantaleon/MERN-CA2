@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-01-21T13:30:30+00:00
- * @Last modified time: 2020-02-06T18:50:04+00:00
+ * @Last modified time: 2020-02-14T17:22:57+00:00
  */
 
  const mongoose = require("mongoose");
@@ -14,10 +14,13 @@
      type: String,
      required: true
    },
-   genres: [{
-     type: mongoose.Schema.Types.ObjectId,
-     ref: "Genre"
-   }],
+   genres: {
+     type: [{
+       type: mongoose.Schema.Types.ObjectId,
+       ref: "Genre"
+     }],
+     required: true
+  },
    libraries: [{
      type: mongoose.Schema.Types.ObjectId,
      ref: "Library"
