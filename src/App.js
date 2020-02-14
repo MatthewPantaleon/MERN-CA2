@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-01-20T09:50:32+00:00
- * @Last modified time: 2020-02-14T20:39:41+00:00
+ * @Last modified time: 2020-02-14T21:05:12+00:00
  */
 
 
@@ -89,13 +89,13 @@ class Welcome extends Component{
             <div className="col-12">
               <div className="card mt-5">
                 <div className="card-header bg-dark text-white" style={{borderRadius: 0}}>
-                  <div class="row justify-content-center">
-                    <div class="col-8 text-center">
+                  <div className="row justify-content-center">
+                    <div className="col-lg-8 col-sm-12 text-center">
                       <h3>Welcome to the Steam Emulator!</h3>
                     </div>
                   </div>
-                  <div class="row justify-content-center">
-                    <div class="col-4 text-center">
+                  <div className="row justify-content-center">
+                    <div className="col-lg-4 col-sm-12 text-center">
                       <h3>Login Or Register!</h3>
                     </div>
                   </div>

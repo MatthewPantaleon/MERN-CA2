@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-01-28T11:28:50+00:00
- * @Last modified time: 2020-02-13T10:05:35+00:00
+ * @Last modified time: 2020-02-14T21:03:58+00:00
  */
 
 import React, { Component } from 'react';
@@ -61,7 +61,7 @@ class Login extends Component{
     return(
       <>
       <div className="row justify-content-center">
-        <div className="col-4 mt-5">
+        <div className="col-lg-4 col-md-6 col-sm-12 mt-5">
           <div className="card">
             <div className="card-header text-white bg-dark">
               <h4>Login</h4>
