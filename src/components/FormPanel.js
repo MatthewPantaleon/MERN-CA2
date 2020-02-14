@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-02-11T18:30:44+00:00
- * @Last modified time: 2020-02-14T13:54:10+00:00
+ * @Last modified time: 2020-02-14T14:05:35+00:00
  */
 
  import React, { Component, Fragment } from 'react';
@@ -15,7 +15,10 @@
      this.state = {
        games: [],
        company: {},
-       existingGame: {}
+       existingGame: {},
+       name: "",
+       description: "",
+       price: ""
      };
    }
 
@@ -28,6 +31,21 @@
    submitGame(e){
      e.preventDefault();
      console.log("NEW GAME");
+     console.log(this.state.company);
+     let data = {
+       companyId: this.state.company._id,
+       newGame: {
+         name: this.state.name,
+         description: this.state.description,
+         price: this.state.price
+       }
+     };
+
+     console.log(data);
+   }
+
+   changeData(e){
+     this.setState({[e.target.name]: e.target.value});
    }
 
 
@@ -44,11 +62,11 @@
           <form onSubmit={(e) => this.submitGame(e)}>
             <div className="form-group row">
               <div className="col-3"><label className="col-form-label" htmlFor="name">Name: </label></div>
-              <div className="col-9"><input name="name" className="form-control" autoComplete="off"/></div>
+              <div className="col-9"><input name="name" className="form-control" onChange={(e) => this.changeData(e)} autoComplete="off"/></div>
             </div>
-            <div className="form-group">
-              <label htmlFor="gameDesc">Game Description:</label>
-              <textarea className="form-control" name="gameDesc" rows="10"></textarea>
+            <div className="form-group mb-3">
+              <label htmlFor="description">Game Description:</label>
+              <textarea className="form-control" name="description" rows="5" onChange={(e) => this.changeData(e)}></textarea>
             </div>
             <div className="form-group row">
               <div className="col-3"><label className="col-form-label" htmlFor="price">Price: </label></div>
@@ -56,7 +74,7 @@
                 <div className="input-group-prepend">
                   <div className="input-group-text">€</div>
                 </div>
-                <input type="text" className="form-control" name="price"/>
+                <input type="text" className="form-control" name="price" onChange={(e) => this.changeData(e)}/>
               </div>
             </div>
             <button className="btn btn-primary">Add New Game</button>
