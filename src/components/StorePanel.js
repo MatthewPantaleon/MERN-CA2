@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-02-11T18:21:46+00:00
- * @Last modified time: 2020-02-14T20:41:29+00:00
+ * @Last modified time: 2020-02-14T20:58:45+00:00
  */
 
 
@@ -90,22 +90,24 @@
                 <Fragment key={i}>
                   <div className="list-group-item list-group-item-action bg-secondary text-white">
                     <div className="row">
-                      <div className="col-3 btn text-white" onClick={() => this.viewGame(e)}>
+
+                      <div className="col-lg-4 col-sm-6 text-white" onClick={() => this.viewGame(e)}>
                         <b>{e.name}</b>
                       </div>
-                      <div className="col-2">
-                        <p>€{e.price}</p>
+                      <div className="col-lg-2 col-sm-6 mb-4">
+                        <b>€{e.price}</b>
                       </div>
-                      <div className="col-7">
+
+                      <div className="col-lg-6 col-sm-8">
                         <div className="row">
-                        <div className="col-4">
-                        {this.props.userGames.findIndex(g => g._id === e._id) < 0 ? <button className="btn-primary" onClick={() => this.props.addToLibrary(e)}>Add To Library</button> : <></>}
+                        <div className="col-md-4 col-sm-12">
+                        {this.props.userGames.findIndex(g => g._id === e._id) < 0 ? <button className="btn-primary" onClick={() => this.props.addToLibrary(e)}>Add To Library</button> : <button className="btn-success"><b>In Library</b></button>}
                         </div>
-                        <div className="col-4">
+                        <div className="col-md-4 col-sm-12">
                         {this.props.companyIds.includes(e._id) ? <button className="btn-warning" onClick={() => this.editGame("edit", e)}>Edit Game</button> : <></>}
                         </div>
 
-                        <div className="col-4">
+                        <div className="col-md-4 col-sm-12">
                         {this.props.companyIds.includes(e._id) ? <button className="btn-danger" onClick={() => this.deleteGame(e)}>Delete Game</button> : <></>}
                         </div>
                         </div>

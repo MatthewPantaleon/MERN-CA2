@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-02-04T15:59:03+00:00
- * @Last modified time: 2020-02-14T20:33:53+00:00
+ * @Last modified time: 2020-02-14T20:46:45+00:00
  */
 
 
@@ -122,7 +122,7 @@
           </div>
           <div className="card-body bg-secondary">
             <div className="row">
-              <div className="col-4">
+              <div className="col-lg-4 col-md-12 col-sm-12 mb-5">
                 <UserPanel
                   genres={this.state.genres}
                   games={this.state.userLibraryGames.games}
@@ -132,7 +132,7 @@
                   removeGame={this.removeGameFromLibrary}
                 />
               </div>
-              <div className="col-8">
+              <div className="col-lg-8 col-md-12 col-sm-12">
 
                 <GamePanel
                   games={this.state.games}
