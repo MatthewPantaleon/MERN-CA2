@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-02-04T15:59:03+00:00
- * @Last modified time: 2020-02-14T18:32:50+00:00
+ * @Last modified time: 2020-02-14T18:50:09+00:00
  */
 
 
@@ -100,6 +100,11 @@
 
    editGame = (editedGame) => {
      console.log("GAME ID: " + editedGame._id);
+     let gameIndex = this.state.games.findIndex(g => g._id == editedGame._id);
+     let allGames = this.state.games;
+     console.log(allGames);
+     this.setState({games: allGames.splice(gameIndex, 1, editedGame)});
+
    };
 
 

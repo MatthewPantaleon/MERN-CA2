@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-02-11T18:30:44+00:00
- * @Last modified time: 2020-02-14T18:40:37+00:00
+ * @Last modified time: 2020-02-14T18:44:30+00:00
  */
 
  import React, { Component, Fragment } from 'react';
@@ -57,8 +57,8 @@
      if(this.props.gameToEdit.edit){
        console.log("WHY");
        newGame = await ApiLoader("games/" + this.props.gameToEdit._id, "put", data).then((d) => d.data).catch((d) => "what even");
-
        this.props.editGame(newGame);
+       this.props.goBack("store");
      }else{
        newGame = await ApiLoader("games", "post", data).then((d) => d.data).catch((d) => "what even");//Catch Doesn't work !??!?!?!?!?!?
        //Errors seem to resolve at then?!?!?
@@ -120,7 +120,7 @@
 
             <div className="form-group">
                 <label htmlFor="genres">Genres:</label>
-                <select multiple className="form-control" name="genres" onChange={(e) => this.changeData(e)} defaultValue={this.state.genres}>
+                <select multiple className="form-control" name="genres" onChange={(e) => this.changeData(e)} defaultValue={this.state.genres || this.props.gameToEdit.genres}>
                   {this.props.genres.map((e, i) => {
                     return(<option value={e._id} key={i}>{e.name}</option>);
                   })}
