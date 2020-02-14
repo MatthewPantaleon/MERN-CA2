@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-02-04T15:59:03+00:00
- * @Last modified time: 2020-02-14T17:00:27+00:00
+ * @Last modified time: 2020-02-14T17:06:47+00:00
  */
 
 
@@ -91,8 +91,8 @@
    deleteGame = async (game) => {
      console.log(game._id);
      // console.log(await ApiLoader("games/" + game._id, "delete"));
-     let lib = await ApiLoader("games/" + game._id, "delete", {data: {libraryId: localStorage.getItem("library_id")}}).then(d => d.data);
-     this.setState({userLibraryGames: lib});
+     let d = await ApiLoader("games/" + game._id, "delete", {data: {libraryId: localStorage.getItem("library_id")}}).then(d => d.data);
+     this.setState({userLibraryGames: d.userLibrary, games: d.games});
    };
 
 

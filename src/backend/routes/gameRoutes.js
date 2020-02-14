@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-02-10T17:09:04+00:00
- * @Last modified time: 2020-02-14T16:59:49+00:00
+ * @Last modified time: 2020-02-14T17:06:14+00:00
  */
 
 const express = require("express");
@@ -69,10 +69,16 @@ router.delete("/games/:id", async (req, res) => {
       libraries[i].games = lib.games.filter(e => e != id);
       await lib.save();
     });
-
+    let userLibrary = {};
     await Library.findOne(libId._id, (err, lib) => {
-      return res.json({data: lib});
+      userLibrary = lib;
     }).populate("games");
+
+    await Game.deleteOne({_id: id}, async (err, game) => {
+      await Game.find({} , (err, games) => {
+        res.json({data: {games, userLibrary}});
+      });
+    });
 
   });
 
