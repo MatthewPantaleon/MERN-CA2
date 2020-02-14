@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-02-06T12:50:48+00:00
- * @Last modified time: 2020-02-14T19:52:39+00:00
+ * @Last modified time: 2020-02-14T20:08:10+00:00
  */
 
  import React, { Component, Fragment } from 'react';
@@ -66,7 +66,11 @@
           editGame={this.props.editGame}
           /> : <></>}
 
-          {this.state.switchPanel == "view" ? <ViewPanel game={this.state.existingGame} /> : <></>}
+          {this.state.switchPanel == "view" ? <ViewPanel
+          game={this.state.existingGame}
+          genres={this.props.genres}
+          addToLibrary={this.props.addToLibrary}
+          /> : <></>}
        </>
      );
    }
