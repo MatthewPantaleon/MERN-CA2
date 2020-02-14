@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-02-11T18:30:44+00:00
- * @Last modified time: 2020-02-14T14:05:35+00:00
+ * @Last modified time: 2020-02-14T14:38:43+00:00
  */
 
  import React, { Component, Fragment } from 'react';
@@ -18,7 +18,8 @@
        existingGame: {},
        name: "",
        description: "",
-       price: ""
+       price: "",
+       genres: []
      };
    }
 
@@ -28,24 +29,35 @@
      this.setState({company: companyDetail});
    }
 
-   submitGame(e){
+   async submitGame(e){
      e.preventDefault();
      console.log("NEW GAME");
-     console.log(this.state.company);
+     // console.log(this.state.company);
      let data = {
        companyId: this.state.company._id,
        newGame: {
          name: this.state.name,
          description: this.state.description,
-         price: this.state.price
+         price: this.state.price,
+         genres: this.state.genres
        }
      };
-
      console.log(data);
+     let newGame = await ApiLoader("games", "post", data);
    }
 
    changeData(e){
-     this.setState({[e.target.name]: e.target.value});
+     if(e.target.name != "genres"){
+       this.setState({[e.target.name]: e.target.value});
+     }else{
+       let values = [];
+       for(let i = 0; i < e.target.options.length; i++){
+         if(e.target.options[i].selected){
+           values.push(e.target.options[i].value);
+         }
+       }
+        this.setState({genres: values});
+     }
    }
 
 
@@ -77,6 +89,15 @@
                 <input type="text" className="form-control" name="price" onChange={(e) => this.changeData(e)}/>
               </div>
             </div>
+
+            <div className="form-group">
+                <label htmlFor="genres">Genres:</label>
+                <select multiple className="form-control" name="genres" onChange={(e) => this.changeData(e)}>
+                  {this.props.genres.map((e, i) => {
+                    return(<option value={e._id} key={i}>{e.name}</option>);
+                  })}
+                </select>
+              </div>
             <button className="btn btn-primary">Add New Game</button>
           </form>
           </div>

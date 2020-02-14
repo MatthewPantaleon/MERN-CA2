@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-02-10T17:09:04+00:00
- * @Last modified time: 2020-02-13T15:56:50+00:00
+ * @Last modified time: 2020-02-14T14:22:25+00:00
  */
 
 const express = require("express");
@@ -21,6 +21,16 @@ router.get("/games", (req, res) => {
     res.json({data: games});
   });
 
+});
+
+
+router.post("/games", async (req, res) => {
+
+  // await Game.save(req.body.newGame. (err, ng) => {
+  //
+  // });
+
+  return res.json({data: "NEW GAME"});
 });
 
 module.exports = router;
