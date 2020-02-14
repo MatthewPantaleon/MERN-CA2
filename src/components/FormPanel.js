@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-02-11T18:30:44+00:00
- * @Last modified time: 2020-02-14T18:10:18+00:00
+ * @Last modified time: 2020-02-14T18:18:16+00:00
  */
 
  import React, { Component, Fragment } from 'react';
@@ -16,7 +16,6 @@
      this.state = {
        games: [],
        company: {},
-       existingGame: {},
        name: "",
        description: "",
        price: "",
@@ -44,14 +43,14 @@
          genres: this.state.genres || this.props.gameToEdit.genres
        }
      };
-     console.log(data);
-     let newGame
 
-     if(!this.props.gameToEdit.edit){
-       newGame = await ApiLoader("games", "post", data).then((d) => d.data).catch((d) => "what even");//Catch Doesn't work !??!?!?!?!?!?
-     }else{
+     let newGame;
+
+     if(this.props.gameToEdit.edit){
+       newGame = await ApiLoader("games/" + this.props.gameToEdit._id, "put", data).then((d) => d.data).catch((d) => "what even");
        return;
-       // newGame = await ApiLoader("games", "post", data).then((d) => d.data).catch((d) => "what even");
+     }else{
+       newGame = await ApiLoader("games", "post", data).then((d) => d.data).catch((d) => "what even");//Catch Doesn't work !??!?!?!?!?!?
      }
 
 

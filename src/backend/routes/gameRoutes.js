@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-02-10T17:09:04+00:00
- * @Last modified time: 2020-02-14T17:06:14+00:00
+ * @Last modified time: 2020-02-14T18:16:14+00:00
  */
 
 const express = require("express");
@@ -84,5 +84,12 @@ router.delete("/games/:id", async (req, res) => {
 
   // res.json({data: "eeeyy"});
 });
+
+
+//editing a game
+router.put("/games/:id", async (req, res) => {
+  res.json({data: {message: "Edit me daddy", id: req.params.id}});
+});
+
 
 module.exports = router;
