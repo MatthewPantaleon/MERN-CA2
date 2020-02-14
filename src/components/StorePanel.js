@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-02-11T18:21:46+00:00
- * @Last modified time: 2020-02-14T16:14:37+00:00
+ * @Last modified time: 2020-02-14T18:08:27+00:00
  */
 
 
@@ -39,6 +39,12 @@
      this.props.deleteGame(e);
    }
 
+   editGame(path, obj){
+     if(obj){
+       obj.edit = true;
+     }
+     this.props.editGame(path, obj);
+   }
 
    render(){
      return (
@@ -93,7 +99,7 @@
                         {this.props.userGames.findIndex(g => g._id == e._id) < 0 ? <button className="btn-primary" onClick={() => this.props.addToLibrary(e)}>Add To Library</button> : <></>}
                         </div>
                         <div className="col-4">
-                        {this.props.companyIds.includes(e._id) ? <button className="btn-warning">Edit Game</button> : <></>}
+                        {this.props.companyIds.includes(e._id) ? <button className="btn-warning" onClick={() => this.editGame("edit", e)}>Edit Game</button> : <></>}
                         </div>
 
                         <div className="col-4">
