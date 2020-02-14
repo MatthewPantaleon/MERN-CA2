@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-02-11T18:21:46+00:00
- * @Last modified time: 2020-02-13T19:05:56+00:00
+ * @Last modified time: 2020-02-14T16:14:37+00:00
  */
 
 
@@ -35,7 +35,9 @@
      this.setState({genreId});
    }
 
-
+   deleteGame(e){
+     this.props.deleteGame(e);
+   }
 
 
    render(){
@@ -95,7 +97,7 @@
                         </div>
 
                         <div className="col-4">
-                        {this.props.companyIds.includes(e._id) ? <button className="btn-danger">Delete Game</button> : <></>}
+                        {this.props.companyIds.includes(e._id) ? <button className="btn-danger" onClick={() => this.deleteGame(e)}>Delete Game</button> : <></>}
                         </div>
                         </div>
                       </div>

@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-02-11T18:30:44+00:00
- * @Last modified time: 2020-02-14T15:36:54+00:00
+ * @Last modified time: 2020-02-14T16:01:54+00:00
  */
 
  import React, { Component, Fragment } from 'react';
@@ -47,6 +47,12 @@
      let newGame = await ApiLoader("games", "post", data).then((d) => d.data).catch((d) => "what even");//Catch Doesn't work !??!?!?!?!?!?
      //Errors seem to resolve at then?!?!?
      console.log(newGame);
+     if(newGame.success){
+       delete newGame.success;
+       console.log(newGame);
+       this.props.addNewGame(newGame.newGame, newGame.companyGames);
+       this.props.goBack(true);
+     }
      // this.setState({errors: new});
    }
 

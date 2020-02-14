@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-02-04T15:59:03+00:00
- * @Last modified time: 2020-02-14T13:37:17+00:00
+ * @Last modified time: 2020-02-14T16:17:47+00:00
  */
 
 
@@ -32,8 +32,8 @@
        alert("You are Unauthorized!");
        window.location = "/login";
      }, async (e) => {
-       // console.log(await ApiLoader("genres"));
-       // console.log("I SHould be below");
+
+       //gets all data from database and passed as props to relevant components from the main state
        let genres = await ApiLoader("genres", "get").then((d) => {return d.data;});
        let games = await ApiLoader("games", "get").then((d) => {return d.data;});
        let companyDetail = await ApiLoader("company/" + localStorage.getItem("company_id"), "get").then((d) => d).catch((d) => {return {data: [], name: ""}});
@@ -54,6 +54,7 @@
      });
    }
 
+   //adding a new game to the currently logged in user and update the display
    checkUserLibrarygames = (newValue) => {
      let temp = this.state.userLibraryGames.games;
      // console.log(temp[0]._id);
@@ -65,26 +66,31 @@
        return;
      }else{
        temp.push(newValue);
-       // console.log(this.state.userLibraryGames);
        this.setState({userLibraryGames: {games: temp}}, async () => {
-         // console.log(this.state);
-         // console.log(this.state.userLibraryGames);
          await ApiLoader("library/" + localStorage.getItem("library_id"), "post", {gameId: newValue._id}).then((d) => d.data);
        });
-       // console.log(await axios.post(process.env.REACT_APP_BACKEND_URI + "/library/" + newValue._id).then((d) => d.data));
-
-       // this.setState({userLibraryGames: await axios.post(process.env.REACT_APP_BACKEND_URI + "/library/" + newValue._id).then((d) => d.data)});
      }
    };
 
+   //removes a game from the currently logged in user
    removeGameFromLibrary = (id) => {
-     // console.log(id);
-     // console.log(this.state.userLibraryGames.games.filter(g => g._id != id));
-
      this.setState({userLibraryGames: {games: this.state.userLibraryGames.games.filter(g => g._id != id)}}, async () => {
        await ApiLoader("library/" + localStorage.getItem("library_id"), "delete", {data: {gameId: id}});
      });
 
+   };
+
+   //after adding the new game to the database update the main state to reflect the new game
+   addNewGame = (newGame, companyGameIds) => {
+     let games = this.state.games;
+     games.push(newGame);
+     this.setState({games, companyGameIds});
+   };
+
+   //deleting a game from the database and from all users
+   deleteGame = async (game) => {
+     console.log(game._id);
+     console.log(await ApiLoader("games/" + game._id, "delete", {data: {gameId: game._id}}));
    };
 
 
@@ -117,6 +123,8 @@
                   companyName={this.state.companyName}
                   companyIds={this.state.companyGameIds || []}
                   addToLibrary={this.checkUserLibrarygames}
+                  addNewGame={this.addNewGame}
+                  deleteGame={this.deleteGame}
                 />
               </div>
             </div>
