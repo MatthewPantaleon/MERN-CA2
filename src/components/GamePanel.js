@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-02-06T12:50:48+00:00
- * @Last modified time: 2020-02-14T19:47:57+00:00
+ * @Last modified time: 2020-02-14T19:52:39+00:00
  */
 
  import React, { Component, Fragment } from 'react';
@@ -8,6 +8,7 @@
  import ApiLoader from './../ApiLoader';
  import StorePanel from './StorePanel';
  import FormPanel from './FormPanel';
+ import ViewPanel from './ViewPanel';
 
  class GamePanel extends Component{
    constructor(props){
@@ -65,7 +66,7 @@
           editGame={this.props.editGame}
           /> : <></>}
 
-          {this.state.switchPanel == "view" ? <p>VIEWING GAME</p> : <></>}
+          {this.state.switchPanel == "view" ? <ViewPanel game={this.state.existingGame} /> : <></>}
        </>
      );
    }
