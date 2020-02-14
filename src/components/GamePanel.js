@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-02-06T12:50:48+00:00
- * @Last modified time: 2020-02-14T20:08:10+00:00
+ * @Last modified time: 2020-02-14T20:30:38+00:00
  */
 
  import React, { Component, Fragment } from 'react';
@@ -29,6 +29,7 @@
    switchPanel = (e, obj) => {
      this.setState({switchPanel: e, existingGame: obj});
    }
+
 
    render(){
      return (
@@ -70,6 +71,11 @@
           game={this.state.existingGame}
           genres={this.props.genres}
           addToLibrary={this.props.addToLibrary}
+          userGames={this.props.userGames}
+          companyIds={this.props.companyIds}
+          editGame={this.switchPanel}
+          deleteGame={this.props.deleteGame}
+          goBack={this.switchPanel}
           /> : <></>}
        </>
      );
