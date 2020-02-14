@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-02-11T18:21:46+00:00
- * @Last modified time: 2020-02-14T20:58:45+00:00
+ * @Last modified time: 2020-02-14T21:00:22+00:00
  */
 
 
@@ -55,10 +55,10 @@
         <div className="card" style={{border: "none"}}>
           <div className="card-header bg-dark">
           <div className="row">
-            <div className="col-6">
-              <input type="text" className="form-control" placeholder="Search" onChange={(e) => this.searchChange(e)}/>
+            <div className="col-md-6 col-sm-12">
+              <input type="text" className="form-control mb-3" placeholder="Search" onChange={(e) => this.searchChange(e)}/>
             </div>
-            <div className="col-6">
+            <div className="col-md-6 col-sm-12">
               <select className="form-control" onChange={(e) => this.genreChange(e)}>
                 <option value="all">All Genres</option>
                 {this.props.genres.map((e, i) => {
