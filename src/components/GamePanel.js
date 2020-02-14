@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-02-06T12:50:48+00:00
- * @Last modified time: 2020-02-14T18:39:24+00:00
+ * @Last modified time: 2020-02-14T19:43:38+00:00
  */
 
  import React, { Component, Fragment } from 'react';
@@ -22,7 +22,7 @@
 
    componentDidMount(){
      // console.log(ApiLoader("games", false));
-
+     
    }
 
    switchPanel = (e, obj) => {

@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-02-04T15:59:03+00:00
- * @Last modified time: 2020-02-14T19:09:11+00:00
+ * @Last modified time: 2020-02-14T19:43:40+00:00
  */
 
 
@@ -23,7 +23,8 @@
        companyGameIds: [],
        userLibraryGames: {games: []},
        companyName: "",
-       storePage: true
+       storePage: true,
+       path: undefined
      };
    }
 
@@ -144,6 +145,7 @@
                   addNewGame={this.addNewGame}
                   deleteGame={this.deleteGame}
                   editGame={this.editGame}
+                  editGameFromLibraryState={this.state.path}
                 />
               </div>
             </div>

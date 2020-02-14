@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-02-06T12:39:02+00:00
- * @Last modified time: 2020-02-14T13:12:28+00:00
+ * @Last modified time: 2020-02-14T19:42:58+00:00
  */
 
 import React, { Component, Fragment } from 'react';
@@ -71,7 +71,7 @@ class UserPanel extends Component{
                   <a className="list-group-item list-group-item-action bg-secondary text-white">
                   {e.name}
                   <button className="btn-danger float-right" onClick={() => this.props.removeGame(e._id)}>X</button>
-                  {this.props.companyIds.includes(e._id) ? <button className="btn-warning float-right">Edit Game</button> : <></>}
+                  {this.props.companyIds.includes(e._id) ? <small className="float-right mr-2">{this.props.companyName}</small> : <></>}
                   </a>
                 </Fragment>
               );
