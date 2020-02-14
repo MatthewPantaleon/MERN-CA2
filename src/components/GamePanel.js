@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-02-06T12:50:48+00:00
- * @Last modified time: 2020-02-14T18:20:55+00:00
+ * @Last modified time: 2020-02-14T18:39:24+00:00
  */
 
  import React, { Component, Fragment } from 'react';
@@ -56,7 +56,7 @@
           genres={this.props.genres}
           goBack={this.switchPanel}
           addNewGame={this.props.addNewGame}
-          gameToEdit={{name: undefined, description: undefined, price: undefined, genres: null}}
+          gameToEdit={{name: undefined, description: undefined, price: undefined, genres: undefined}}
           /> : <></>}
 
           {this.state.switchPanel == "edit" ? <FormPanel
@@ -64,6 +64,7 @@
           goBack={this.switchPanel}
           addNewGame={this.props.addNewGame}
           gameToEdit={this.state.existingGame}
+          editGame={this.props.editGame}
           /> : <></>}
        </>
      );

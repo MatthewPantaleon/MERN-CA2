@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-02-11T18:30:44+00:00
- * @Last modified time: 2020-02-14T18:18:16+00:00
+ * @Last modified time: 2020-02-14T18:40:37+00:00
  */
 
  import React, { Component, Fragment } from 'react';
@@ -19,7 +19,7 @@
        name: "",
        description: "",
        price: "",
-       genres: null,
+       genres: undefined,
        errors: {}
      };
    }
@@ -27,7 +27,15 @@
    async componentDidMount(){
      // console.log(ApiLoader("games", false));
      let companyDetail = await ApiLoader("company/" + localStorage.getItem("company_id"), "get").then((d) => d.data);
-     this.setState({company: companyDetail});
+     this.setState({
+       company: companyDetail,
+       name: this.props.gameToEdit.name,
+       description: this.props.gameToEdit.description,
+       price: this.props.gameToEdit.price,
+       genres: this.props.gameToEdit.genres,
+     }, () => {
+       console.log(this.state);
+     });
    }
 
    async submitGame(e){
@@ -43,28 +51,27 @@
          genres: this.state.genres || this.props.gameToEdit.genres
        }
      };
-
+     console.log("SUBMIT");
      let newGame;
 
      if(this.props.gameToEdit.edit){
+       console.log("WHY");
        newGame = await ApiLoader("games/" + this.props.gameToEdit._id, "put", data).then((d) => d.data).catch((d) => "what even");
-       return;
+
+       this.props.editGame(newGame);
      }else{
        newGame = await ApiLoader("games", "post", data).then((d) => d.data).catch((d) => "what even");//Catch Doesn't work !??!?!?!?!?!?
+       //Errors seem to resolve at then?!?!?
+       // console.log(newGame);
+       if(newGame.success){
+         delete newGame.success;
+         console.log(newGame);
+         this.props.addNewGame(newGame.newGame, newGame.companyGames);
+         this.props.goBack("store");
+       }else{
+         this.setState({errors: newGame}, () => console.log(this.state.errors));
+       }
      }
-
-
-     //Errors seem to resolve at then?!?!?
-     // console.log(newGame);
-     if(newGame.success){
-       delete newGame.success;
-       console.log(newGame);
-       this.props.addNewGame(newGame.newGame, newGame.companyGames);
-       this.props.goBack("store");
-     }else{
-       this.setState({errors: newGame}, () => console.log(this.state.errors));
-     }
-     // this.setState({errors: new});
    }
 
    changeData(e){
@@ -87,7 +94,7 @@
        <>
         <div className="card" style={{border: "none"}}>
           <div className="card-header bg-dark text-white">
-            <h5>Add Game</h5>
+            <h5>{this.props.gameToEdit.edit ? "Edit " : "Add "} Game</h5>
             <small>{this.state.company.name}</small>
           </div>
           <hr className="m-0 p-0" style={{border: "2px solid black"}}/>
@@ -95,11 +102,11 @@
           <form onSubmit={(e) => this.submitGame(e)}>
             <div className="form-group row">
               <div className="col-3"><label className="col-form-label" htmlFor="name">Name: </label></div>
-              <div className="col-9"><input name="name" className="form-control" onChange={(e) => this.changeData(e)} autoComplete="off" value={this.props.gameToEdit.name}/></div>
+              <div className="col-9"><input name="name" className="form-control" onChange={(e) => this.changeData(e)} autoComplete="off" value={this.state.name || ""}/></div>
             </div>
             <div className="form-group mb-3">
               <label htmlFor="description">Game Description:</label>
-              <textarea className="form-control" name="description" rows="5" onChange={(e) => this.changeData(e)} value={this.props.gameToEdit.description}></textarea>
+              <textarea className="form-control" name="description" rows="5" onChange={(e) => this.changeData(e)} value={this.state.description || ""}></textarea>
             </div>
             <div className="form-group row">
               <div className="col-3"><label className="col-form-label" htmlFor="price">Price: </label></div>
@@ -107,13 +114,13 @@
                 <div className="input-group-prepend">
                   <div className="input-group-text">€</div>
                 </div>
-                <input type="text" className="form-control" name="price" onChange={(e) => this.changeData(e)} value={this.props.gameToEdit.price} autoComplete="off"/>
+                <input type="text" className="form-control" name="price" onChange={(e) => this.changeData(e)} value={this.state.price || ""} autoComplete="off"/>
               </div>
             </div>
 
             <div className="form-group">
                 <label htmlFor="genres">Genres:</label>
-                <select multiple className="form-control" name="genres" onChange={(e) => this.changeData(e)} defaultValue={this.props.gameToEdit.genres}>
+                <select multiple className="form-control" name="genres" onChange={(e) => this.changeData(e)} defaultValue={this.state.genres}>
                   {this.props.genres.map((e, i) => {
                     return(<option value={e._id} key={i}>{e.name}</option>);
                   })}
@@ -122,7 +129,7 @@
             {this.state.errors.name ? <Alert variant="danger">{this.state.errors.name.message}</Alert> : <> </>}
             {this.state.errors.price ? <Alert variant="danger">{this.state.errors.price.message}</Alert> : <></>}
             {this.state.errors.genres ? <Alert variant="danger">{this.state.errors.genres.message}</Alert> : <></>}
-            <button className="btn btn-primary">Add New Game</button>
+            <button className="btn btn-primary">{this.props.gameToEdit.edit ? "Edit " : "Add New "} Game</button>
           </form>
           </div>
         </div>

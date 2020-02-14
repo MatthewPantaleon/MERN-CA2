@@ -1,6 +1,6 @@
 /**
  * @Date:   2020-02-04T15:59:03+00:00
- * @Last modified time: 2020-02-14T17:16:20+00:00
+ * @Last modified time: 2020-02-14T18:32:50+00:00
  */
 
 
@@ -98,6 +98,10 @@
      this.setState({userLibraryGames: d.userLibrary, games: d.games});
    };
 
+   editGame = (editedGame) => {
+     console.log("GAME ID: " + editedGame._id);
+   };
+
 
    render(){
      return(
@@ -130,6 +134,7 @@
                   addToLibrary={this.checkUserLibrarygames}
                   addNewGame={this.addNewGame}
                   deleteGame={this.deleteGame}
+                  editGame={this.editGame}
                 />
               </div>
             </div>
