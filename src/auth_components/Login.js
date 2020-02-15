@@ -36,7 +36,7 @@ class Login extends Component{
     };
     this.setState({
       error: {message: ''}}, () => {
-      axios.post(process.env.REACT_APP_BACKEND_URI + '/login', data).then((res) => {
+      axios.post((process.env.REACT_APP_BACKEND_URI || 'http://localhost:9001') + '/login', data).then((res) => {
         console.log(res);
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("username", res.data.username);

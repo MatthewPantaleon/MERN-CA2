@@ -92,7 +92,7 @@
                     <div className="row">
 
                       <div className="col-lg-4 col-sm-6 text-white" onClick={() => this.viewGame(e)}>
-                        <b>{e.name}</b>
+                        <b className="hoverName">{e.name}</b>
                       </div>
                       <div className="col-lg-2 col-sm-6 mb-4">
                         <b>€{e.price}</b>

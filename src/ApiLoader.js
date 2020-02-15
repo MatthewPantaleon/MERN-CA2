@@ -16,7 +16,7 @@ export default function ApiLoader(collection, method, data, auth){
   }
 
   axios.defaults.headers.common['Authorization'] = localStorage.getItem('token');
-  return axios[method](process.env.REACT_APP_BACKEND_URI + "/" + collection, data).then((r) => {
+  return axios[method]((process.env.REACT_APP_BACKEND_URI || 'http://localhost:9001') + "/" + collection, data).then((r) => {
     return r.data;
   }).catch((r) => {
     return r;

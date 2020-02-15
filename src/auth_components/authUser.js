@@ -37,7 +37,7 @@ async function authUser(callBackFail, callBackSucc){
     // };
     // console.log(localStorage.getItem('token'));
     axios.defaults.headers.common['Authorization'] = localStorage.getItem('token');
-    truthiness = await axios.post(process.env.REACT_APP_BACKEND_URI + '/check')
+    truthiness = await axios.post((process.env.REACT_APP_BACKEND_URI || 'http://localhost:9001') + '/check')
     .then((e) => {
       if(callBackSucc)callBackSucc(e);
       return true;

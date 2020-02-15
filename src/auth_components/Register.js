@@ -41,7 +41,7 @@ class Register extends Component{
     };
 
     this.setState({error: {message: ''}}, () => {
-      axios.post('http://localhost:9001/register', data).then((res) => {
+      axios.post((process.env.REACT_APP_BACKEND_URI || 'http://localhost:9001') + '/register', data).then((res) => {
         console.log(res);
         window.location = "/login";
       }).catch((res) => {
